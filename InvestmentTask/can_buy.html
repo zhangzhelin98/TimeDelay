@@ -1,0 +1,18 @@
+{{ block title }}
+投資タスク【第{{player.round_number}}回】
+{{ endblock }}
+{{ block content }}
+
+<p>あなたはくじの最大購入希望価格として、{{player.price}}円を選択しました。
+
+</p>
+<p>コンピューターが無作為に選択した整数は{{player.computer_price}}です。
+
+</p>
+<p >あなたが選択した最大購入希望はコンピューターが無作為に選択した整数以上なので、くじを{{player.computer_price}}円で購入することになります。
+</p>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="otree-btn-next btn btn-primary me-md-2" id="next" >次へ</button>    
+</div>
+
+{{ endblock }}

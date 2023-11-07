@@ -1,0 +1,31 @@
+{{ block title }}
+問題4
+{{ endblock }}
+{{ block content }}
+
+{{ for eachfield in form }}
+    <div class="card my-5">
+        <div class="card-body">
+            
+            <div class="card-text">
+                <div class="my-2">
+                    {{ eachfield.label }}
+                </div>
+                
+                    <div class="input-group my-2">
+                        <input style="font-size: 15px" type="number" placeholder="半角英数字で入力してください"  class="form-control form-control-lg" type="text" id="{{ eachfield.id }}" name="{{ eachfield.name }}" required>
+                        <span class="input-group-text">{{ eachfield.description }}</span>
+                    </div>
+                
+                {{ formfield_errors eachfield.name }}
+            </div>
+        </div>
+    </div>
+{{ endfor }}
+
+   
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="otree-btn-next btn btn-primary me-md-2" id="next" >次へ</button>    
+</div>
+
+{{ endblock }}

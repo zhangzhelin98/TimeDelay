@@ -1,0 +1,35 @@
+{{ block title }}
+    結果
+{{ endblock }}
+{{ block content }}
+
+    <style>
+        
+        input {
+            pointer-events: none;
+        }
+
+        .solution-incorrect {
+            color: red;
+        }
+
+        .solution-correct {
+            color: green;
+        }
+    </style>
+
+    <p>あなたの答えと解釈</p>
+
+    {{ include C.FORM_TEMPLATE }}
+
+
+<p class="fs-3">選択を変えず、「次へ」ボタンを押して、次のページに移動してください。</p>    
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="otree-btn-next btn btn-primary me-md-2" id="next" >次へ</button>    
+    </div>
+
+{{ endblock }}
+
+
+

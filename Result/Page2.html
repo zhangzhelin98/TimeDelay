@@ -1,0 +1,17 @@
+{{ block title }}
+    結果
+{{ endblock }}
+
+{{ block content }}
+<p>本実験での謝金総額は{{participant.payoff_end1}}円です:</p>
+<p>参加費1000円+</p>
+<p>投資タスクでの残りの{{participant.keep_end}}円の資金（エフォートタスクで獲得した謝金を含まれいる）</p>
+
+<p>謝金は十円単位に切り上げて支払われますので、実際に獲得できる謝金は{{participant.payoff_end}}円になります。</p>
+<p></p>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="otree-btn-next btn btn-primary me-md-2" id="next" >次へ</button>    
+</div>
+{{ endblock }}
+
+

@@ -1,0 +1,81 @@
+{{ block title }}
+結果【第{{player.round_number}}回】
+{{ endblock }}
+
+{{ block styles }}
+<style>
+    /* カメラの映像を見せたくない場合は以下を設定する */
+     #camera {
+        display: none;
+    } 
+     #photo {
+        display: none;
+    } 
+</style>
+{{ endblock }}
+
+
+{{ block content }}
+
+
+
+{{ if player.reward == -1000 }}
+<p class="fs-3">無作為抽選によって、今回のくじの払戻金額は<b style="color: red">{{player.reward}}円</b>になりました。</p>
+
+{{ else }}
+<p>無作為抽選によって、今回のくじの払戻金額は{{player.reward}}円になりました。</p>
+{{ endif }}
+
+<p>あなたは、くじを購入していないので、今回の収益は０円になります。
+
+</p>
+<p>手元の資金は{{player.keep}}円です。
+</p>
+<div class="d-grid gap-2 col-6 mx-auto">
+    <button type="button" class="btn btn-warning" id="shutter"onclick="javascript:button_onclick();" >第{{player.round_number}}回が終わる</button>
+</div>
+<video id="camera" style="max-width: 100%;"></video>
+<canvas id="photo" style="max-width: 100%;"></canvas>
+
+<script src="{{ static 'global/webcam.js' }}"></script>
+ 
+<p></p>
+<p>上の「終わる」ボタンを押して、今回の投資を終了させてください。</p>
+<p><b style="color: gold">注意：「終わる」ボタンを一回しか押さないでください！</b></p>
+  
+<p>投資を終了させてから、「次へ」ボタンを押して、次のページに移動してください。</p>
+
+
+<!-- {{ if player.reward == -1000 and player.tail_total == 1 }}
+<p>投資を終了させてから、「次へ」ボタンを押して、<b style="color: red">10分の休憩</b>に入ります。</p>
+
+{{ else }}
+<p>投資を終了させてから、「次へ」ボタンを押して、次のページに移動してください。</p>
+{{ endif }} -->
+
+
+<script>
+  function button_onclick(){
+    $("#next").attr('disabled',false);
+ }  
+    </script>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="otree-btn-next btn btn-primary me-md-2" id="next" disabled="disabled">次へ</button>    
+</div>
+<p></p>
+<div class="alert alert-info" role="alert">
+    次のページに進む前に、「終わる」ボタンをクリックする必要があります。
+    「次へ」 ボタンをクリックしても次のページに移動しない場合は、もう一度 「終わる」ボタンをクリックしてみてください。
+  </div>
+{{ endblock }}
+
+
+{{ block scripts }}
+ <script type="text/javascript">
+    function alertMsg(){
+        alert('「終わる」ボタンをクリックしてから、「次へ」 ボタンをクリックして次のページに移動してください。')
+    }
+    setInterval(alertMsg,15000);
+    </script>
+{{ endblock }}

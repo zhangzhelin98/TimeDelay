@@ -1,0 +1,18 @@
+{{ block title }}
+計算タスクの結果と報酬
+{{ endblock }}
+
+
+{{ block content }}
+<p>あなたが答えた質問のうち、合計{{ player.score_calculation }} 問が正解しました。</p>
+
+<p>結果として、あなたは計算タスクを通して{{participant.reward_cal }}円の謝金を獲得しました。
+</p>
+<p>下の[次へ]ボタンを押して、投資タスクの説明に進んでください。
+</p>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="otree-btn-next btn btn-primary me-md-2" id="next" >次へ</button>    
+</div>
+{{ endblock }}
+
+

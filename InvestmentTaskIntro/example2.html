@@ -1,0 +1,47 @@
+{{ block title }}
+例2
+{{ endblock }}
+{{ block content }}
+<p>あなたはくじの最大購入希望価格として、30円を選択したとします。
+
+</p>
+<p>コンピューターが無作為に選択した整数は45だっとします。
+
+</p>
+<p ><b>あなたが選択した価格はコンピューターが無作為で選択した整数未満なので、くじは購入しません。
+    </b>
+
+</p>
+<p><b>結果、あなたの今回の収益は、くじの払戻金額にかかわらず、０円になります。</b></p>
+
+<div class="d-grid gap-2 col-6 mx-auto">
+  <button type="button" class="btn btn-warning"  onclick="javascript:button_onclick();" >第1回が終わる</button>
+</div>
+<p></p>
+
+<p>上の「終わる」ボタンを押して、今回の投資を終了させてください。</p>
+<p><b style="color: gold">注意：「終わる」ボタンを一回しか押さないでください。</b></p>
+  
+
+
+
+<p>投資を終了させてから、「次へ」ボタンを押して、次のページに移動してください。</p>
+ 
+<p></p>
+{{ block scripts }}
+<script>
+    function button_onclick(){
+      $("#next").attr('disabled',false);
+   }  
+</script>
+{{ endblock }}
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="otree-btn-next btn btn-primary me-md-2" id="next" disabled="disabled" >次へ</button>    
+</div>
+<p></p>
+<div class="alert alert-info" role="alert">
+    次のページに進む前に、「終わる」ボタンをクリックする必要があります。
+    「次へ」 ボタンをクリックしても次のページに移動しない場合は、もう一度 「終わる」ボタンをクリックしてみてください。
+  </div>   
+{{ endblock }}

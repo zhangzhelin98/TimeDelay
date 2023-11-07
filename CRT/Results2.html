@@ -1,0 +1,30 @@
+{{ block title }}
+クイズの結果と報酬
+{{ endblock }}
+
+{{ block content }}
+
+
+<p>ここまで、あなたは総計{{participant.reward_effort}}円の追加謝金を獲得しました。
+
+</p>
+<p>あなたが獲得した謝金は総計{{participant.reward_plus1000}}円になります。
+</p>
+<div class="card" style="width: 17rem;">
+    <div class="card-body">
+        
+固定謝金1000円＋追加謝金{{participant.reward_effort}}円＝ {{participant.reward_plus1000}}円
+    </div>
+</div>
+<p> </p>
+<p>固定謝金1000円は次に行われる投資タスクで使うようになります。
+</p>
+<p><b>注意</b>：固定謝金の残金が参加費と一緒に、投資タスクの終了後に支払われるようになります。
+</p>
+<p>「次へ」ボタンを押して、投資タスクに進んでください。</p>
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="otree-btn-next btn btn-primary me-md-2" id="next" >次へ</button>    
+</div>
+{{ endblock }}
+
+

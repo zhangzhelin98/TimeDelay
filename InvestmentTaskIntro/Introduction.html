@@ -1,0 +1,61 @@
+{{ block title }}
+投資タスクの説明
+{{ endblock }}
+{{ block content }}
+
+
+<p>投資タスクは<b>100</b>期間続きます。</p>
+<p>毎期、あなたはくじを買うために0から50円の間で、いくらまでなら支払うか（最大購入希望価格）を決めます。購入したくじの払戻金額は、下の表に示された一定の確率に従って、毎期無作為に決定されます。
+</p>
+<p>ある期のくじの払戻額は、他の期のくじの払い戻し額とは無関係に独立して決まります。(つまり、今回の投資で1000円の損失を蒙ったとしても、後の投資においてくじが損失を生む確率は、それまで同様５％です。)
+</p>
+
+<!-- <p>くじの払戻額は、今、この実験に参加している全員に共通の額です。
+</p> -->
+
+
+<table class="table">
+    <thead>
+      <tr>
+        <th scope="col" class="table-primary">払戻金額</th>
+        <th scope="col" class="table-primary">確率</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row" class="table-success">¥10</th>
+        <td class="table-success">19%</td>
+      </tr>
+      <tr>
+        <th scope="row" class="table-success">¥20</th>
+        <td class="table-success">19%</td>
+      </tr>
+      <tr>
+        <th scope="row" class="table-success">¥30</th>
+        <td class="table-success">19%</td>
+      </tr>
+      <tr>
+        <th scope="row" class="table-success">¥40</th>
+        <td class="table-success">19%</td>
+      </tr>
+      <tr>
+        <th scope="row" class="table-success">¥50</th>
+        <td class="table-success">19%</td>
+      </tr>
+      <tr>
+        <th scope="row" class="table-danger">-¥1000</th>
+        <td class="table-danger">5%</td>
+      </tr>
+    </tbody>
+  </table>
+
+
+
+
+
+  
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button class="otree-btn-next btn btn-primary me-md-2" id="next" >次へ</button>    
+  </div>
+
+{{ endblock }}

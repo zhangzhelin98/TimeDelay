@@ -1,0 +1,129 @@
+{{ block title }}
+座席位置調整
+{{ endblock }}
+
+{{ block styles }}
+<style>
+    /* カメラの映像を見せたくない場合は以下を設定する */
+    /* #camera {
+        display: none;
+    } */
+    /* #photo {
+        display: none;
+    } */
+</style>
+{{ endblock }}
+
+
+{{ block content }}
+<br></br>
+
+<p>まず、ブラウザのカメラの使用許可に同意してください。</p>
+<p>フルフェイスを次の画面に入れるように座席位置を調整してください。<b>（実験中に、頬杖を突くようなこと、顔をふさぐようなことをしないでください。また、実験中に顔周りに髪がかからないようにしてください。）</b>
+</p>
+<p>調整が終わったら、「シャッター」ボタンを押して、ニュートラルな表情の写真を撮ってください。
+</p>
+<p>写真を撮り終わったら、下の「次へ」ボタンを押して、投資タスクに移動してください。</p>
+<p style="color: red"><b>注意：調整が終わったら、座席の位置を動かないて下さい。また、投資タスク中はできるだけ上半身を動かさないようにしてください。
+</b></p>
+
+    <button type="button" class="btn btn-danger" id="shutter" onclick="javascript:button_onclick();">シャッター</button>
+    <video id="camera" style="max-width: 100%;"></video>
+    <canvas id="photo" style="max-width: 100%;"></canvas>
+
+    
+
+
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="otree-btn-next btn btn-primary me-md-2" id="next" disabled="disabled">次へ</button>    
+    </div>
+
+{{ endblock }}
+
+
+{{ block scripts }}
+<script>
+
+    // function liveRecv(photodata){
+    //     if (photosize > 102400) {
+    //         return blackphoto == 0;
+    //     } else {
+    //         return blackphoto == 1;
+    //     }
+    // }
+
+    
+
+
+    window.onload = () => {
+        const video  = document.getElementById("camera");
+        const canvas = document.getElementById("photo");
+
+        // カメラ設定
+        const constraints = {
+            audio: false,
+            video: {
+                width: 1920,
+                height: 1080
+            }
+        };
+
+        // 写真の解像度を設定
+        canvas.width = constraints.video.width;
+        canvas.height = constraints.video.height;
+
+        // カメラに写っているものを <video> に流す
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then( (stream) => {
+                video.srcObject = stream;
+                video.onloadedmetadata = (e) => {
+                    video.play();
+                };
+            })
+            .catch( (err) => {
+                console.error(err.name + ": " + err.message);
+            });
+
+        // シャッターボタン押下で発火
+        document.getElementById("shutter").addEventListener("click", () => {
+            // canvasに画像を貼り付ける
+            const ctx = canvas.getContext("2d");
+            ctx.drawImage(video, 0, 0, canvas.width, canvas.height);    // この瞬間にシャッターが切られる
+
+            // canvas画像をBASE64形式に変換
+//            const quality = 0.99;    // これ以上品質を上げると 1MB を超えてしまうかも
+            const quality = 0.95;
+            const photodata = canvas.toDataURL("image/jpeg", quality);
+            
+            console.log(photodata);
+
+            // BASE64形式の写真データを liveSend する
+            // 一発の liveSend のサイズが 1MB を超えると oTree は受け付けない？
+            liveSend({
+                "photostr": photodata
+            })
+        });
+    };
+
+
+</script>
+
+<!-- <script>
+    public class Test {
+        public static void main(String[] args) throws Exception {
+            MultipartFile file = photodata;
+            long size = file.length() / 1024;
+            System.out(size)
+        }
+    }
+</script> -->
+
+<script>
+    function button_onclick(){
+      $("#next").attr('disabled',false);
+   }  
+</script>
+  
+
+  
+{{ endblock }}

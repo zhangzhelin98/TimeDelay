@@ -1,0 +1,15 @@
+{{ block title }}
+クイズ
+{{ endblock }}
+{{ block content }}
+<p>クイズは7つの質問で構成されています。</p>
+<p>直感でお答えください。</p>
+
+<p>下の[次へ]ボタンを押すと、 クイズが始まります。</p>
+
+    {{ formfields }}
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="otree-btn-next btn btn-primary me-md-2" id="next" >次へ</button>    
+    </div>
+
+{{ endblock }}
