@@ -11,7 +11,7 @@ import base64
 import glob
 import pathlib
 
-
+#记得删除照片程序
 doc = """
 投資タスク
 """
