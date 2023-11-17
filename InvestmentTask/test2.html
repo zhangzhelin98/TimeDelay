@@ -1,0 +1,20 @@
+{{ block content }}
+<!-- <button type="button" class="btn btn-danger" id="stopRecordingButton" onclick="javascript:button_onclick();">停止</button> -->
+
+<!-- 停止页面 HTML -->
+<button id="stopButton" onclick="javascript:button_onclick();">停止录制</button>
+<script src="{{ static 'global/record_video.js' }}"></script> 
+
+<script>
+    function button_onclick(){
+      $("#next").attr('disabled',false);
+   }  
+      </script>
+  
+  <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+      <button class="otree-btn-next btn btn-primary me-md-2" id="next" disabled="disabled">次へ</button>    
+  </div>
+
+  {{ endblock }}  
+
+ 

@@ -1,9 +1,22 @@
 from os import environ
+import os
+
+
+# 获取项目的根目录
+# settings.py
+
+# 导入 os 模块
+import os
+
+# 获取项目的根目录
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
 
 SESSION_CONFIGS = [
     dict(
-        name='myexperiment',
-        app_sequence=['introduction','CalculationTask','InvestmentTaskIntro','ComprehensionTest', 'webcam','InvestmentTask' ,'Survey','CRT','Result'],
+        name='TimeDelay',
+        app_sequence=['InvestmentTask' ,'Survey','CRT','Result'],
         num_demo_participants=1,
     ),
 ]
@@ -44,3 +57,5 @@ ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
 DEMO_PAGE_INTRO_HTML = """ """
 
 SECRET_KEY = '4500948767192'
+# 设置 STATIC_ROOT 为视频文件的保存路径
+STATIC_ROOT = os.path.join(BASE_DIR, '_static', 'video')

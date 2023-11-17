@@ -425,9 +425,14 @@ class Result(Page):
     def is_displayed(player: Player):
         return player.round_number >= 100
 
+class test1(Page):
+    pass
 
 
-page_sequence = [Investment1, Investment2, can_buy, cannot_buy, Feedback_buy, Feedback_buy_bigloss,Feedback_notbuy, Feedback_notbuy_bigloss, OverdraftHappened, Result]
+class test2(Page):
+    pass
+
+page_sequence = [test1, Investment1, Investment2, can_buy, cannot_buy, Feedback_buy, Feedback_buy_bigloss,Feedback_notbuy, Feedback_notbuy_bigloss, OverdraftHappened, Result, test2]
 
 # def vars_for_admin_report(subsession: Subsession):
 #     files = {}
