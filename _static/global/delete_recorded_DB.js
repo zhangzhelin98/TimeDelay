@@ -1,11 +1,13 @@
-// const stopButton = document.getElementById('stopButton');
-// let download_link = document.querySelector("#download-video");
+let stopButton = document.getElementById('stopButton');
+let download_link = document.querySelector("#download-video");
 let mediaRecorder = null;
 let mediaStream = null;
 let recordedChunks = [];
 let blobdata = null;
 let put;
 let imgFile;
+let db;
+let dbName = 'webcamDB';
 
 window.onload = async () => {
 
@@ -42,58 +44,8 @@ window.onload = async () => {
         console.log(blobdata)
 
         // store video blob data to indexedDB
-        var dbName = 'webcamDB';
+        // var dbName = 'webcamDB';
         var storeName  = 'webcamStore';
-
-        if(js_vars.cnt == 1) {
-            var deleteReq = indexedDB.deleteDatabase(dbName);
-
-            deleteReq.onsuccess = function(event){
-                console.log('db delete success');
-                // 存在しないDB名を指定してもこっちが実行される
-            }
-
-            deleteReq.onerror = function(){
-                console.log('db delete error');
-            }
-        }
-
-        var openReq  = indexedDB.open(dbName);
-        //　DB名を指定して接続。DBがなければ新規作成される。
-
-        openReq.onupgradeneeded = function(event){
-        //onupgradeneededは、DBのバージョン更新(DBの新規作成も含む)時のみ実行
-            console.log('db upgrade');
-            var db = event.target.result;
-            // db.createObjectStore(storeName, {keyPath: 'id', autoIncrement: true})
-            db.createObjectStore(storeName)
-        }
-        openReq.onsuccess = function(event){
-        //onupgradeneededの後に実行。更新がない場合はこれだけ実行
-            console.log('db open success');
-            var db = event.target.result;
-            var transaction = db.transaction(storeName, 'readwrite');
-            transaction.oncomplete = function(){
-                console.log("Success transaction");
-            };
-            // put video blobdata into indexedDB
-            put = transaction.objectStore(storeName).put(blobdata, "video" + String(js_vars.cnt))
-            console.log(put)
-            // transaction.objectStore(storeName).get("video").onsuccess = function (event) {
-            //     imgFile = event.target.result;
-            //     console.log(imgFile)
-            //     console.log("Got elephant!" + imgFile);
-            //     var imgURL = URL.createObjectURL(imgFile);
-            //     download_link.href = imgURL;
-            // };
-
-            db.close();
-        }
-        openReq.onerror = function(event){
-        // 接続に失敗
-            console.log('db open error');
-        }
-
 
         // var deleteReq = indexedDB.deleteDatabase(dbName);
 
@@ -105,20 +57,86 @@ window.onload = async () => {
         // deleteReq.onerror = function(){
         //     console.log('db delete error');
         // }
+
+        var openReq  = indexedDB.open(dbName);
+        //　DB名を指定して接続。DBがなければ新規作成される。
+
+        openReq.onupgradeneeded = function(event){
+        //onupgradeneededは、DBのバージョン更新(DBの新規作成も含む)時のみ実行
+            console.log('db upgrade');
+            db = event.target.result;
+            // db.createObjectStore(storeName, {keyPath: 'id', autoIncrement: true})
+            db.createObjectStore(storeName)
+        }
+        openReq.onsuccess = function(event){
+        //onupgradeneededの後に実行。更新がない場合はこれだけ実行
+            console.log('db open success');
+            db = event.target.result;
+            var transaction = db.transaction(storeName, 'readwrite');
+            transaction.oncomplete = function(){
+                console.log("Success transaction");
+            };
+            // put video blobdata into indexedDB
+            put = transaction.objectStore(storeName).put(blobdata, "video" + String(js_vars.cnt))
+            console.log(put)
+            let videolist = []
+            for(var item of js_vars.list) {
+                var transaction_infor = db.transaction(storeName, 'readwrite');
+                // get video blobdata from indexedDB
+                transaction_infor.objectStore(storeName).get("video" + String(item)).onsuccess = function (event) {
+                    console.log(item)
+                    imgFile = event.target.result;
+                    console.log("Got video!" + imgFile);
+                    console.log(imgFile)
+                    videolist.push(imgFile)
+                    // after get all video blob data, create a new url to a download link.
+                    if (item == js_vars.cnt) {
+                        console.log("videolist")
+                        console.log(videolist)
+                        var imgURL = URL.createObjectURL(new Blob(videolist, { type: 'video/webm' }));
+                        download_link.href = imgURL;
+                    }
+                };
+                transaction_infor.oncomplete = function(){
+                    console.log("Success read transaction");
+                };
+                transaction_infor.onerror = function(){
+                    console.log("failed read transaction");
+                };
+            }
+            
+        }
+        openReq.onerror = function(event){
+        // 接続に失敗
+            console.log('db open error');
+        }
     });
 
     mediaRecorder.start(1000);
 };
 
+// window.onbeforeunload = () => {
+//     mediaRecorder.stop();
+//     console.log("end")
+// };
 window.onbeforeunload = () => {
-    mediaRecorder.stop();
-    console.log("end")
+    db.close();
+    var deleteReq = indexedDB.deleteDatabase(dbName);
+
+    deleteReq.onsuccess = function(event){
+        console.log('db delete success');
+        // 存在しないDB名を指定してもこっちが実行される
+    }
+
+    deleteReq.onerror = function(){
+        console.log('db delete error');
+    }
+    console.log("end");
 };
 
-// stopButton.addEventListener('click', () => {
-//     mediaRecorder.stop();
-//     console.log("end");
-// });
+stopButton.addEventListener('click', () => {
+    mediaRecorder.stop();
+});
 
 // function blobToArrayBuffer(blob) {
 //     return new Promise((resolve, reject) => {

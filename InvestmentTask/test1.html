@@ -1,13 +1,25 @@
+{{ block title }}
+    練習ページ
+{{ endblock }}
+
 {{ block content }}
+    <div>
+        <p>test</p>
+    </div>
 
-<!-- 开始录制页面 HTML -->
-<button id="startButton" onclick="javascript:button_onclick();">开始录制</button>
+    <!-- <div>
+        <video id="video" width="1920" height="1080"></video>
+        <canvas id="canvas" width="1920" height="1080"></canvas>
+    </div> -->
 
+    <!-- <div>
+        <button type="button" id="stopButton">stop录制</button>
+        <p></p>
+        <a id="download-video" download="test.webm">Download Video</a>
+        <p></p>
+    </div> -->
+    <script src="{{ static 'global/record_video.js' }}"></script>
 
-<!-- <button type="button" class="btn btn-danger" id="startRecordingButton" onclick="javascript:button_onclick();">录像</button> -->
-<!-- <button type="button" class="btn btn-danger" id="stopButton" onclick="javascript:button_onclick();">停止</button> -->
+    {{ next_button }}
 
-
-
-<script src="{{ static 'global/record_video.js' }}"></script> 
-
+{{ endblock }}  

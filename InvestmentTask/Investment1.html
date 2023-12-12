@@ -79,3 +79,15 @@ reducing the anchoring/default effect. -->
   </div>
 
 {{ endblock }}
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+        $('#shutter').click(function () {
+            // 当按钮被按下时，发送实时消息
+            otree.send({
+                'button_pressed': true
+            });
+        });
+    </script>
+{% endblock %}
