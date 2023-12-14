@@ -10,7 +10,7 @@ import datetime
 import base64
 import glob
 import pathlib
-import cv2
+#import cv2
 import numpy as np
 
 
@@ -59,6 +59,9 @@ class Player(BasePlayer):
 
 def computer_price(group: Group):
     group.computer_price = random.randint(1,50)
+
+
+
     
     
 #发生损失的概率，从里面抽选
@@ -79,6 +82,7 @@ def reward_5(group: Group):
                                    50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50])     
 
 def profit(player: Player):
+    group = player.group
     if player.price >= group.computer_price :
        player.profit = group.reward - group.computer_price
        
@@ -91,6 +95,7 @@ def profit(player: Player):
     
 
 def tail_event(player: Player):
+    group = player.group
     Occurrence = 0
     if group.reward == -1000:
         Occurrence += 1
@@ -132,27 +137,27 @@ class Investment1(Page):
         if timeout_happened:
             player.price = random.randint(0,50)
             
-        group = player.group
-        computer_price(group)
-        #player.computer_price=group.computer_price
-        reward_5(group)
-        profit(player)
-        tail_event(player)
-        player_in_all_rounds = player.in_all_rounds()
-        player.tail_total = sum([p.tail for p in player_in_all_rounds])
-        player.total_profit=sum([p.profit for p in player_in_all_rounds])
-        participant = player.participant
-        player.keep = participant.initial + player.total_profit
-        if player.keep <= 0:
-            player.overdraft = True
-        else:
-            player.overdraft = False 
-        if player.keep >=1000:
-            player.keep_end = player.keep - 1000
-        if player.keep <1000:
-            player.keep_end = 0
         
-        participant.keep_end = player.keep_end    
+        # computer_price(group)
+        # player.computer_price=group.computer_price
+        # reward_5(group)
+        # profit(player)
+        # tail_event(player)
+        # player_in_all_rounds = player.in_all_rounds()
+        # player.tail_total = sum([p.tail for p in player_in_all_rounds])
+        # player.total_profit=sum([p.profit for p in player_in_all_rounds])
+        # participant = player.participant
+        # player.keep = participant.initial + player.total_profit
+        # if player.keep <= 0:
+        #     player.overdraft = True
+        # else:
+        #     player.overdraft = False 
+        # if player.keep >=1000:
+        #     player.keep_end = player.keep - 1000
+        # if player.keep <1000:
+        #     player.keep_end = 0
+        
+        # participant.keep_end = player.keep_end    
 
     #写真 
     #def live_method(player: Player, data):
@@ -184,6 +189,40 @@ class Investment1(Page):
         #if player.blackphoto == 1:
             #return "通信エラーが発生しました。もう一度価格を決定して、「決定」ボタンを押してください。"
 
+class WaitPage1(WaitPage):
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number <= 5
+    
+    @staticmethod
+    def after_all_players_arrive(group: Group):
+        computer_price(group)
+        reward_5(group)
+        for player in group.get_players():
+            profit(player)
+            tail_event(player)
+            player_in_all_rounds = player.in_all_rounds()
+            player.tail_total = sum([p.tail for p in player_in_all_rounds])
+            player.total_profit=sum([p.profit for p in player_in_all_rounds])
+            participant = player.participant
+            player.keep = participant.initial + player.total_profit
+            if player.keep <= 0:
+                player.overdraft = True
+            else:
+                player.overdraft = False 
+            if player.keep >=1000:
+                player.keep_end = player.keep - 1000
+            if player.keep <1000:
+                player.keep_end = 0
+        
+            participant.keep_end = player.keep_end  
+            
+
+    
+
+
+
+
 
 class Investment2(Page):
     timeout_seconds = 15
@@ -206,26 +245,36 @@ class Investment2(Page):
             player.price = random.randint(0,50)
             
         
-        computer_price(group)
-        reward(group)
-        profit(player)
-        tail_event(player)
-        player_in_all_rounds = player.in_all_rounds()
-        player.tail_total = sum([p.tail for p in player_in_all_rounds])
-        player.total_profit=sum([p.profit for p in player_in_all_rounds])
-        participant = player.participant
-        player.keep = participant.initial + player.total_profit
-        if player.keep <= 0:
-            player.overdraft = True
-        else:
-            player.overdraft = False                     
-        if player.keep >=1000:
-            player.keep_end = player.keep - 1000
-        if player.keep <1000:
-            player.keep_end = 0
-       
-        participant.keep_end = player.keep_end      
+         
         
+class WaitPage2(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number > 5
+    
+    @staticmethod
+    def after_all_players_arrive(group: Group):
+        computer_price(group)
+        reward_5(group)
+        for player in group.get_players():
+            profit(player)
+            tail_event(player)
+            player_in_all_rounds = player.in_all_rounds()
+            player.tail_total = sum([p.tail for p in player_in_all_rounds])
+            player.total_profit=sum([p.profit for p in player_in_all_rounds])
+            participant = player.participant
+            player.keep = participant.initial + player.total_profit
+            if player.keep <= 0:
+                player.overdraft = True
+            else:
+                player.overdraft = False 
+            if player.keep >=1000:
+                player.keep_end = player.keep - 1000
+            if player.keep <1000:
+                player.keep_end = 0
+        
+            participant.keep_end = player.keep_end 
+    
 
 
 
@@ -234,6 +283,7 @@ class can_buy(Page):
     timeout_seconds = 10
     @staticmethod
     def is_displayed(player):
+      group = player.group
       return player.price >= group.computer_price
 
 
@@ -242,6 +292,7 @@ class cannot_buy(Page):
     timeout_seconds = 10
     @staticmethod
     def is_displayed(player):
+      group = player.group
       return player.price < group.computer_price
 
 
@@ -252,6 +303,7 @@ class Feedback_buy(Page):
     timeout_seconds = 15
     @staticmethod
     def is_displayed(player):
+      group = player.group
       return player.price >= group.computer_price and group.reward != -1000    
 
    
@@ -260,6 +312,7 @@ class Feedback_buy_bigloss(Page):
 
     @staticmethod
     def is_displayed(player):
+      group = player.group
       return player.price >= group.computer_price and group.reward == -1000 
 
 
@@ -272,6 +325,7 @@ class Feedback_notbuy(Page):
     timeout_seconds = 15
     @staticmethod
     def is_displayed(player):
+      group = player.group
       return player.price < group.computer_price and group.reward != -1000 
   
     
@@ -280,6 +334,7 @@ class Feedback_notbuy_bigloss(Page):
 
     @staticmethod
     def is_displayed(player):
+      group = player.group
       return player.price < group.computer_price and group.reward == -1000 
  
 
@@ -295,12 +350,14 @@ class Delay(Page):
     timeout_seconds = 600
     @staticmethod
     def is_displayed(player):
+      group = player.group
       return group.reward == -1000 and player.tail_total == 1   
 
 
 class Adjustment(Page):
     @staticmethod
     def is_displayed(player):
+      group = player.group
       return group.reward == -1000 and player.tail_total == 1          
 
 class OverdraftHappened(Page):
@@ -423,7 +480,7 @@ class temptest4(Page):
 class test2(Page):
     pass
 
-page_sequence = [test1, temptest1, temptest2, temptest3, temptest4, Investment1, Investment2, can_buy, cannot_buy, Feedback_buy, Feedback_buy_bigloss,Feedback_notbuy, Feedback_notbuy_bigloss, OverdraftHappened, Result, test2]
+page_sequence = [test1, temptest1, temptest2, temptest3, temptest4, Investment1, Investment2,WaitPage1, can_buy, cannot_buy, Feedback_buy, Feedback_buy_bigloss,Feedback_notbuy, Feedback_notbuy_bigloss, OverdraftHappened, Result]
 
 # def vars_for_admin_report(subsession: Subsession):
 #     files = {}

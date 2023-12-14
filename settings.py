@@ -16,7 +16,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SESSION_CONFIGS = [
     dict(
         name='TimeDelay',
-        app_sequence=['InvestmentTask' ,'Survey','CRT','Result'],
+        app_sequence=['introduction','CalculationTask','InvestmentTaskIntro','ComprehensionTest', 'webcam','InvestmentTask' ,'Survey','CRT','Result'],
         num_demo_participants=2,
     ),
 ]
