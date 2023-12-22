@@ -11,7 +11,7 @@ import base64
 import glob
 import pathlib
 #import cv2
-import numpy as np
+# import numpy as np
 
 
 doc = """
@@ -50,6 +50,8 @@ class Player(BasePlayer):
     keep_end = models.IntegerField() 
     blackphoto = models.IntegerField(initial=0)
     button_pressed_time = models.FloatField()
+    # in miliseconds
+    time_distance_from_start = models.StringField(initial="")
     def record_button_pressed_time(self):
         # 记录按下按钮的时间
         self.button_pressed_time = time.time()
@@ -136,6 +138,19 @@ class Investment1(Page):
     def before_next_page(player: Player, timeout_happened):
         if timeout_happened:
             player.price = random.randint(0,50)
+
+    @staticmethod
+    def live_method(player: Player, data):
+        if data:
+            try:
+                decidetime = data["decidetime"]
+            except Exception:
+                print('invalid message received:', data)
+                return
+            if player.time_distance_from_start == "":
+                player.time_distance_from_start = "invest 1:" + str(decidetime - player.participant.vars["start_time"])
+            else:
+                player.time_distance_from_start += "," + "invest 1:" + str(decidetime - player.participant.vars["start_time"])
             
         
         # computer_price(group)
@@ -216,9 +231,6 @@ class WaitPage1(WaitPage):
                 player.keep_end = 0
         
             participant.keep_end = player.keep_end  
-            
-
-    
 
 
 
@@ -244,7 +256,18 @@ class Investment2(Page):
         if timeout_happened:
             player.price = random.randint(0,50)
             
-        
+    @staticmethod
+    def live_method(player: Player, data):
+        if data:
+            try:
+                decidetime = data["decidetime"]
+            except Exception:
+                print('invalid message received:', data)
+                return
+            if player.time_distance_from_start == "":
+                player.time_distance_from_start = "invest 2:" + str(decidetime - player.participant.vars["start_time"])
+            else:
+                player.time_distance_from_start += "," + "invest 2:" + str(decidetime - player.participant.vars["start_time"])
          
         
 class WaitPage2(Page):
@@ -304,7 +327,24 @@ class Feedback_buy(Page):
     @staticmethod
     def is_displayed(player):
       group = player.group
-      return player.price >= group.computer_price and group.reward != -1000    
+      return player.price >= group.computer_price and group.reward != -1000   
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        print(player.time_distance_from_start) 
+    
+    @staticmethod
+    def live_method(player: Player, data):
+        if data:
+            try:
+                finishtime = data["finishtime"]
+            except Exception:
+                print('invalid message received:', data)
+                return
+            if player.time_distance_from_start == "":
+                player.time_distance_from_start = "feedback buy:" + str(finishtime - player.participant.vars["start_time"])
+            else:
+                player.time_distance_from_start += "," + "feedback buy:" +  str(finishtime - player.participant.vars["start_time"])
 
    
 
@@ -314,11 +354,23 @@ class Feedback_buy_bigloss(Page):
     def is_displayed(player):
       group = player.group
       return player.price >= group.computer_price and group.reward == -1000 
+    
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        print(player.time_distance_from_start)
 
-
-
-
-
+    @staticmethod
+    def live_method(player: Player, data):
+        if data:
+            try:
+                finishtime = data["finishtime"]
+            except Exception:
+                print('invalid message received:', data)
+                return
+            if player.time_distance_from_start == "":
+                player.time_distance_from_start = "feedback buy big loss:" + str(finishtime - player.participant.vars["start_time"])
+            else:
+                player.time_distance_from_start += "," + "feedback buy big loss:" + str(finishtime - player.participant.vars["start_time"])
 
 
 class Feedback_notbuy(Page):
@@ -327,6 +379,23 @@ class Feedback_notbuy(Page):
     def is_displayed(player):
       group = player.group
       return player.price < group.computer_price and group.reward != -1000 
+    
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        print(player.time_distance_from_start)
+    
+    @staticmethod
+    def live_method(player: Player, data):
+        if data:
+            try:
+                finishtime = data["finishtime"]
+            except Exception:
+                print('invalid message received:', data)
+                return
+            if player.time_distance_from_start == "":
+                player.time_distance_from_start = "feedback not buy:" + str(finishtime - player.participant.vars["start_time"])
+            else:
+                player.time_distance_from_start += "," + "feedback not buy:" + str(finishtime - player.participant.vars["start_time"])
   
     
 
@@ -336,12 +405,23 @@ class Feedback_notbuy_bigloss(Page):
     def is_displayed(player):
       group = player.group
       return player.price < group.computer_price and group.reward == -1000 
+    
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        print(player.time_distance_from_start)
  
-
-
-
-
-      
+    @staticmethod
+    def live_method(player: Player, data):
+        if data:
+            try:
+                finishtime = data["finishtime"]
+            except Exception:
+                print('invalid message received:', data)
+                return
+            if player.time_distance_from_start == "":
+                player.time_distance_from_start = "feedback not buy big loss:" + str(finishtime - player.participant.vars["start_time"])
+            else:
+                player.time_distance_from_start += "," + "feedback not buy big loss:" + str(finishtime - player.participant.vars["start_time"])
 
 
 class Delay(Page):
@@ -391,28 +471,14 @@ class test1(Page):
     
     @staticmethod
     def live_method(player: Player, data):
-        # print("get video data")
-        # print(data)
-        # print(len(data))
-        # video = data['videodata']
-
-        # print(video)
-        # print(len(video))
-        # for attr in dir(video):
-        #     # Getting rid of dunder methods
-        #     if not attr.startswith("__"):
-        #         print(attr, getattr(video, attr))
-
-        # with open("demo.mp4", 'wb+') as f:
-        #     f.write(video)
-        photostr = data["frame"]
-        # timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H%M%S")
-
-        ## 受け取ったBASE64形式の写真データからプレフィックスを取り除いてから，バイナリに変換する
-        prefixstr = "data:image/jpeg;base64,"
-        img = base64.b64decode(photostr.replace(prefixstr, "").encode())
-        print(img.__sizeof__())
-        player.participant.vars["videoframe"].append(img)
+        if data:
+            try:
+                start_time = data["starttime"]
+            except Exception:
+                print('invalid message received:', data)
+                return
+            player.participant.vars["start_time"] = start_time
+        
 
     # @staticmethod
     # def before_next_page(player: Player, timeout_happened):

@@ -80,3 +80,16 @@
     setInterval(alertMsg,15000);
     </script>
 {{ endblock }}
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+        document.getElementById("shutter")
+        .addEventListener("click", function() {
+            const finishtime = Date.now();
+            liveSend({
+                'finishtime': finishtime,
+                });
+        });
+    </script>
+{% endblock %}

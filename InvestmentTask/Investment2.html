@@ -74,3 +74,16 @@ reducing the anchoring/default effect. -->
   </div>
 
 {{ endblock }}
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+        document.getElementById("shutter")
+        .addEventListener("click", function() {
+            const decidetime = Date.now();
+            liveSend({
+                'decidetime': decidetime,
+                });
+        });
+    </script>
+{% endblock %}
