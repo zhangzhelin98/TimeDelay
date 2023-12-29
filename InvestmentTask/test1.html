@@ -20,6 +20,19 @@
     </div> -->
     <script src="{{ static 'global/record_video.js' }}"></script>
 
+    <div>Press following button to start investment experiments.</div>
+
     {{ next_button }}
 
 {{ endblock }}  
+
+{{ block scripts }}
+    <script>
+        window.onbeforeunload = () => {
+            const starttime = Date.now();
+            liveSend({
+            'starttime': starttime,
+            });
+        };
+    </script>
+{{ endblock }}

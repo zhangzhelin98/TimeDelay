@@ -69,3 +69,16 @@
     「次へ」 ボタンをクリックしても次のページに移動しない場合は、もう一度 「終わる」ボタンをクリックしてみてください。
   </div>   
 {{ endblock }}
+
+{% block scripts %}
+    {{ super() }}
+    <script>
+        document.getElementById("shutter")
+        .addEventListener("click", function() {
+            const finishtime = Date.now();
+            liveSend({
+                'finishtime': finishtime,
+                });
+        });
+    </script>
+{% endblock %}

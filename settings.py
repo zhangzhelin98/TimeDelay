@@ -17,7 +17,7 @@ SESSION_CONFIGS = [
     dict(
         name='TimeDelay',
         app_sequence=['introduction','CalculationTask','InvestmentTaskIntro','ComprehensionTest', 'webcam','InvestmentTask' ,'Survey','CRT','Result'],
-        num_demo_participants=2,
+        num_demo_participants=1,
     ),
 ]
 
