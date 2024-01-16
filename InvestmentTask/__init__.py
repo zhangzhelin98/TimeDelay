@@ -23,7 +23,7 @@ doc = """
 class C(BaseConstants):
     NAME_IN_URL = 'InvestmentTask'
     PLAYERS_PER_GROUP = None
-    NUM_ROUNDS = 100
+    NUM_ROUNDS = 10
     ENDOWMENT = cu(2200)
 
 
@@ -140,6 +140,14 @@ class Investment1(Page):
             player.price = random.randint(0,50)
 
     @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] += 1
+        print(player.participant.vars["pagecount"])
+        return dict(
+            cnt = player.participant.vars["pagecount"]
+        )            
+
+    @staticmethod
     def live_method(player: Player, data):
         if data:
             try:
@@ -210,6 +218,14 @@ class WaitPage1(WaitPage):
         return player.round_number <= 5
     
     @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] += 1
+        print(player.participant.vars["pagecount"])
+        return dict(
+            cnt = player.participant.vars["pagecount"]
+        )    
+    
+    @staticmethod
     def after_all_players_arrive(group: Group):
         computer_price(group)
         reward_5(group)
@@ -245,7 +261,13 @@ class Investment2(Page):
     def is_displayed(player: Player):
         return player.round_number > 5
 
-   
+    @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] += 1
+        print(player.participant.vars["pagecount"])
+        return dict(
+            cnt = player.participant.vars["pagecount"]
+        )   
 
     @staticmethod
     def js_vars(player: Player):
@@ -270,11 +292,17 @@ class Investment2(Page):
                 player.time_distance_from_start += "," + "invest 2:" + str(decidetime - player.participant.vars["start_time"])
          
         
-class WaitPage2(Page):
+class WaitPage2(WaitPage):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number > 5
-    
+    @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] += 1
+        print(player.participant.vars["pagecount"])
+        return dict(
+            cnt = player.participant.vars["pagecount"]
+        )    
     @staticmethod
     def after_all_players_arrive(group: Group):
         computer_price(group)
@@ -308,7 +336,13 @@ class can_buy(Page):
     def is_displayed(player):
       group = player.group
       return player.price >= group.computer_price
-
+    @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] += 1
+        print(player.participant.vars["pagecount"])
+        return dict(
+            cnt = player.participant.vars["pagecount"]
+        )
 
 
 class cannot_buy(Page):
@@ -317,7 +351,13 @@ class cannot_buy(Page):
     def is_displayed(player):
       group = player.group
       return player.price < group.computer_price
-
+    @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] += 1
+        print(player.participant.vars["pagecount"])
+        return dict(
+            cnt = player.participant.vars["pagecount"]
+        )
 
 
 
@@ -328,7 +368,13 @@ class Feedback_buy(Page):
     def is_displayed(player):
       group = player.group
       return player.price >= group.computer_price and group.reward != -1000   
-
+    @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] += 1
+        print(player.participant.vars["pagecount"])
+        return dict(
+            cnt = player.participant.vars["pagecount"]
+        )
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         print(player.time_distance_from_start) 
@@ -354,7 +400,13 @@ class Feedback_buy_bigloss(Page):
     def is_displayed(player):
       group = player.group
       return player.price >= group.computer_price and group.reward == -1000 
-    
+    @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] += 1
+        print(player.participant.vars["pagecount"])
+        return dict(
+            cnt = player.participant.vars["pagecount"]
+        )
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         print(player.time_distance_from_start)
@@ -379,7 +431,13 @@ class Feedback_notbuy(Page):
     def is_displayed(player):
       group = player.group
       return player.price < group.computer_price and group.reward != -1000 
-    
+    @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] += 1
+        print(player.participant.vars["pagecount"])
+        return dict(
+            cnt = player.participant.vars["pagecount"]
+        )    
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         print(player.time_distance_from_start)
@@ -405,7 +463,13 @@ class Feedback_notbuy_bigloss(Page):
     def is_displayed(player):
       group = player.group
       return player.price < group.computer_price and group.reward == -1000 
-    
+    @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] += 1
+        print(player.participant.vars["pagecount"])
+        return dict(
+            cnt = player.participant.vars["pagecount"]
+        )    
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         print(player.time_distance_from_start)
@@ -432,14 +496,26 @@ class Delay(Page):
     def is_displayed(player):
       group = player.group
       return group.reward == -1000 and player.tail_total == 1   
-
+    @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] += 1
+        print(player.participant.vars["pagecount"])
+        return dict(
+            cnt = player.participant.vars["pagecount"]
+        )
 
 class Adjustment(Page):
     @staticmethod
     def is_displayed(player):
       group = player.group
       return group.reward == -1000 and player.tail_total == 1          
-
+    @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] += 1
+        print(player.participant.vars["pagecount"])
+        return dict(
+            cnt = player.participant.vars["pagecount"]
+        )
 class OverdraftHappened(Page):
     @staticmethod
     def is_displayed(player: Player):
@@ -449,13 +525,28 @@ class OverdraftHappened(Page):
     @staticmethod
     def app_after_this_page(player: Player, upcoming_apps):
         return upcoming_apps[0]
-
+    @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] += 1
+        print(player.participant.vars["pagecount"])
+        return dict(
+            cnt = player.participant.vars["pagecount"]
+        )
 class Result(Page):
     @staticmethod
     def is_displayed(player: Player):
-        return player.round_number >= 100
-
+        return player.round_number >= 10
+    @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] += 1
+        print(player.participant.vars["pagecount"])
+        return dict(
+            cnt = player.participant.vars["pagecount"]
+        )
 class test1(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
 
     @staticmethod
     def vars_for_template(player: Player):
@@ -528,6 +619,9 @@ class temptest3(Page):
 
 class temptest4(Page):
     @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number >= 10
+    @staticmethod
     def vars_for_template(player: Player):
         return dict(
             download_name = "timedelay_player_" + str(player.id_in_subsession),
@@ -546,7 +640,7 @@ class temptest4(Page):
 class test2(Page):
     pass
 
-page_sequence = [test1, temptest1, temptest2, temptest3, temptest4, Investment1, Investment2,WaitPage1, can_buy, cannot_buy, Feedback_buy, Feedback_buy_bigloss,Feedback_notbuy, Feedback_notbuy_bigloss, OverdraftHappened, Result]
+page_sequence = [test1, Investment1, Investment2,WaitPage1, WaitPage2, can_buy, cannot_buy, Feedback_buy, Feedback_buy_bigloss,Feedback_notbuy, Feedback_notbuy_bigloss, OverdraftHappened, Result,temptest4 ]
 
 # def vars_for_admin_report(subsession: Subsession):
 #     files = {}

@@ -1,10 +1,10 @@
 {{ block title }}
-    練習ページ
+    投資タスク
 {{ endblock }}
 
 {{ block content }}
     <div>
-        <p>test</p>
+        <p>「次へ」ボタンを押して、投資タスクを開始してください。</p>
     </div>
 
     <!-- <div>
@@ -20,9 +20,11 @@
     </div> -->
     <script src="{{ static 'global/record_video.js' }}"></script>
 
-    <div>Press following button to start investment experiments.</div>
+    
 
-    {{ next_button }}
+    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+        <button class="otree-btn-next btn btn-primary me-md-2" id="next" >次へ</button>    
+    </div>
 
 {{ endblock }}  
 
