@@ -260,6 +260,12 @@ class Investment2(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number > 5
+    
+
+    @staticmethod
+    def js_vars(player: Player): # type: ignore
+        return dict(endowment=C.ENDOWMENT)
+ 
 
     @staticmethod
     def js_vars(player: Player):
@@ -269,9 +275,6 @@ class Investment2(Page):
             cnt = player.participant.vars["pagecount"]
         )   
 
-    @staticmethod
-    def js_vars(player: Player):
-        return dict(endowment=C.ENDOWMENT)
     
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
