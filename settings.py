@@ -17,14 +17,14 @@ SESSION_CONFIGS = [
     dict(
         name='TimeDelay',
         app_sequence=['introduction','CalculationTask','InvestmentTaskIntro','ComprehensionTest', 'webcam','InvestmentTask' ,'Survey','CRT','STEM','Result'],
-        num_demo_participants=1,
+        num_demo_participants=2,
     ),
 ]
 
 # SESSION_CONFIGS = [
 #     dict(
 #         name='TimeDelay',
-#         app_sequence=['CalculationTask','InvestmentTask' ,'Survey','CRT','STEM','Result'],
+#         app_sequence=['CRT','STEM','Result'],
 #         num_demo_participants=1,
 #     ),
 # ]

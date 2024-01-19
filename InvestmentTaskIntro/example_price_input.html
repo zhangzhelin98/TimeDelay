@@ -8,7 +8,7 @@
 <div class="card">
     <div class="card-body">
 <p class="fw-bold"> スライダーを動かして最大購入希望価格を決定してください。</p>
-<input style="width: 500px" type="range" name="give" min="0" max="50" oninput="updateDescription(this)">
+<input style="width: 500px" type="range" name="give" min="0" max="500" oninput="updateDescription(this)">
 <p id="description"></p>
 
 <button type="button" class="btn btn-danger" onclick="javascript:button_onclick();">決定</button>
@@ -16,7 +16,7 @@
     </div>
 </div>
 <p></p>
-<p>30秒以内に決定してください。時間が過ぎると、コンピューターがあなたの最大購入希望価格を0から50円の間で無作為に決定することになります。</p>
+<p>30秒以内に決定してください。時間が過ぎると、コンピューターがあなたの最大購入希望価格を0から500ポイントの間で無作為に決定することになります。</p>
 <p>価格を決めたら、<b style="color: red">「決定」</b>ボタンを押してください。</p>
 <p>「決定」ボタンを押してから、右下の「次へ」ボタンを押して、次のページに移動してください。</p>
 <p><b style="color: red">注意：この「決定」ボタンを一回しか押さないでください。</b></p>
@@ -32,7 +32,7 @@ reducing the anchoring/default effect. -->
     function updateDescription(input) {
         let give = parseInt(input.value);
         let keep = js_vars.endowment - give;
-        description.innerText = ` 最大購入希望価格は${give}円とします。`
+        description.innerText = ` 最大購入希望価格は${give}ポイントとします。`
     }
 </script>
 

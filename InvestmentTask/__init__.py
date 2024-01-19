@@ -24,7 +24,7 @@ class C(BaseConstants):
     NAME_IN_URL = 'InvestmentTask'
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 10
-    ENDOWMENT = cu(2200)
+    ENDOWMENT = cu(20000)
 
 
 class Subsession(BaseSubsession):
@@ -38,7 +38,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    price = models.IntegerField(min=0, max=50, label="最大希望価格")
+    price = models.IntegerField(min=0, max=500, label="最大希望価格")
     computer_price = models.IntegerField()
     reward = models.IntegerField()
     profit = models.IntegerField()
@@ -60,7 +60,7 @@ class Player(BasePlayer):
 
 
 def computer_price(group: Group):
-    group.computer_price = random.randint(1,50)
+    group.computer_price = random.randint(1,500)
 
 
 
@@ -68,20 +68,31 @@ def computer_price(group: Group):
     
 #发生损失的概率，从里面抽选
 def reward(group: Group):
-    group.reward = random.choice([10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
-                                   20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,
-                                   30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,
-                                   40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,
-                                   50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,
-                                   -1000,-1000,-1000,-1000,-1000])   
+    group.reward = random.choice([100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,
+                                   200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,
+                                   300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,
+                                   400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,
+                                   500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,
+                                   100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,
+                                   200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,
+                                   300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,
+                                   400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,
+                                   500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,
+                                   1000,1000,1000,1000,1000,1000,1000,1000,1000,-10000])   
         
 #前5轮不会发生重大损失 practice rounds
 def reward_5(group: Group):
-    group.reward = random.choice([10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,10,
-                                   20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,20,
-                                   30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,30,
-                                   40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,40,
-                                   50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50,50])     
+    group.reward = random.choice([100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,
+                                   200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,
+                                   300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,
+                                   400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,
+                                   500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,
+                                   100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,
+                                   200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,
+                                   300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,
+                                   400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,
+                                   500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,
+                                   1000,1000,1000,1000,1000,1000,1000,1000,1000])     
 
 def profit(player: Player):
     group = player.group
@@ -99,9 +110,9 @@ def profit(player: Player):
 def tail_event(player: Player):
     group = player.group
     Occurrence = 0
-    if group.reward == -1000:
+    if group.reward == -10000:
         Occurrence += 1
-    if group.reward != -1000:
+    if group.reward != -10000:
         Occurrence += 0
     player.tail = Occurrence    
         
@@ -137,7 +148,7 @@ class Investment1(Page):
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         if timeout_happened:
-            player.price = random.randint(0,50)
+            player.price = random.randint(0,500)
 
     @staticmethod
     def js_vars(player: Player):
@@ -241,9 +252,9 @@ class WaitPage1(WaitPage):
                 player.overdraft = True
             else:
                 player.overdraft = False 
-            if player.keep >=1000:
-                player.keep_end = player.keep - 1000
-            if player.keep <1000:
+            if player.keep >=10000:
+                player.keep_end = player.keep - 10000
+            if player.keep <10000:
                 player.keep_end = 0
         
             participant.keep_end = player.keep_end  
@@ -279,7 +290,7 @@ class Investment2(Page):
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         if timeout_happened:
-            player.price = random.randint(0,50)
+            player.price = random.randint(0,500)
             
     @staticmethod
     def live_method(player: Player, data):
@@ -322,9 +333,9 @@ class WaitPage2(WaitPage):
                 player.overdraft = True
             else:
                 player.overdraft = False 
-            if player.keep >=1000:
-                player.keep_end = player.keep - 1000
-            if player.keep <1000:
+            if player.keep >=10000:
+                player.keep_end = player.keep - 10000
+            if player.keep <10000:
                 player.keep_end = 0
         
             participant.keep_end = player.keep_end 
@@ -370,7 +381,7 @@ class Feedback_buy(Page):
     @staticmethod
     def is_displayed(player):
       group = player.group
-      return player.price >= group.computer_price and group.reward != -1000   
+      return player.price >= group.computer_price and group.reward != -10000   
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
@@ -402,7 +413,7 @@ class Feedback_buy_bigloss(Page):
     @staticmethod
     def is_displayed(player):
       group = player.group
-      return player.price >= group.computer_price and group.reward == -1000 
+      return player.price >= group.computer_price and group.reward == -10000 
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
@@ -433,7 +444,7 @@ class Feedback_notbuy(Page):
     @staticmethod
     def is_displayed(player):
       group = player.group
-      return player.price < group.computer_price and group.reward != -1000 
+      return player.price < group.computer_price and group.reward != -10000 
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
@@ -465,7 +476,7 @@ class Feedback_notbuy_bigloss(Page):
     @staticmethod
     def is_displayed(player):
       group = player.group
-      return player.price < group.computer_price and group.reward == -1000 
+      return player.price < group.computer_price and group.reward == -10000 
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
@@ -498,7 +509,7 @@ class Delay(Page):
     @staticmethod
     def is_displayed(player):
       group = player.group
-      return group.reward == -1000 and player.tail_total == 1   
+      return group.reward == -10000 and player.tail_total == 1   
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
@@ -511,7 +522,7 @@ class Adjustment(Page):
     @staticmethod
     def is_displayed(player):
       group = player.group
-      return group.reward == -1000 and player.tail_total == 1          
+      return group.reward == -10000 and player.tail_total == 1          
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1

@@ -12,64 +12,41 @@ class C(BaseConstants):
     NUM_ROUNDS = 1
     # TIMER_TEXT = "Time to complete this section:"
     materials_crt = {
-        "field": models.FloatField,
+        "field": models.StringField,
         "items": { 
             "crt1": {
                 "question": """
-                    バットとボールは合計で 1.10 ドルです。 バットはボールより1ドル高い。ボールの値段はいくらですか？
+                    もしもあなたがレースに参加して、2位の人を抜き去った場合、あなたは何位ですか?
 
                 """,
-                "unit": "セント",
-                "correct": 5.0
+                "unit": "位",
+                "correct": "2"
             },
             "crt2": {
                 "question": """
-                   5 台の機械で 5 個の部品を 5 分間で作成する場合、100 台の機械で 100 個の部品を作成するのにかかる時間は?
+                   農夫が15匹の羊を持っていて、8匹以外は死にました。残りの羊は何匹ですか?
 
                 """,
-                "unit": "分",
-                "correct": 5.0
+                "unit": "匹",
+                "correct": "8"
             },
             "crt3": {
                 "question": """
-                    湖には、スイレンの畑があります。 毎日、畑のサイズは 2 倍になります。 スイレンの畑が湖全体を覆いつくすのに48日かかる場合、畑が湖の半分を覆うのにどれくらいかかりますか?
+                    花子の父親は三人の娘がいます。最初の二人の名前は四月と五月です。三番目の娘の名前は何ですか?
 
                 """,
-                "unit": "日",
-                "correct": 47
+                "unit": "",
+                "correct": "花子"
             },
             "crt4": {
                 "question": """
-                    Johnは６日間で１バレルの水を飲みます。Maryは１２日間で１バレルの水を飲みます。二人が一緒に１バレルの水を飲むのに何日かかりますか？
+                    何立方フィートの土が、深さ3フィート×幅3フィート×長さ3フィートの穴に含まれていますか？
 
                 """,
-                "unit": "日",
-                "correct": 4
+                "unit": "立方フィート",
+                "correct": "0"
             },
-            "crt5": {
-                "question": """
-                    Jerryの成績は、クラスで上から１５番目、下からも１５番目です。クラスには何人の生徒がいますか？
-
-                """,
-                "unit": "人",
-                "correct": 29
-            },
-            "crt6": {
-                "question": """
-                    ある男は６０ドルで豚を買い、７０ドルでこの豚を売りました。そして、彼は同じ豚を８０ドルで買い戻し、９０ドルで売りました。この男はいくら儲けましたか？
-
-                """,
-                "unit": "ドル",
-                "correct": 20
-            },
-            "crt7": {
-                "question": """
-                    
-
-                """,
-                "unit": "ここで半角数字の1、2また3を入力してください。",
-                "correct": 3
-            },    
+            
         }
     }
 
@@ -216,37 +193,40 @@ class CRT4(Page):
     # is_displayed = is_displayed1
     # get_timeout_seconds = get_timeout_seconds1
     # timer_text = C.TIMER_TEXT
-     
-
-
-class CRT5(Page):
-    form_model = "player"
-    form_fields = ["crt5"]
-    # is_displayed = is_displayed1
-    # get_timeout_seconds = get_timeout_seconds1 
-    # timer_text = C.TIMER_TEXT
-
-
-class CRT6(Page):
-    form_model = "player"
-    form_fields = ["crt6"]
-    # is_displayed = is_displayed1
-    # get_timeout_seconds = get_timeout_seconds1 
-    # timer_text = C.TIMER_TEXT
-    
-
-class CRT7(Page):
-    form_model = "player"
-    form_fields = ["crt7"]
-    # is_displayed = is_displayed1
-    # get_timeout_seconds = get_timeout_seconds1 
-    # timer_text = C.TIMER_TEXT
-    
-
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         
-        my_before_next_page1(player, timeout_happened)
+        my_before_next_page1(player, timeout_happened)     
+
+
+# class CRT5(Page):
+#     form_model = "player"
+#     form_fields = ["crt5"]
+#     # is_displayed = is_displayed1
+#     # get_timeout_seconds = get_timeout_seconds1 
+#     # timer_text = C.TIMER_TEXT
+
+
+# class CRT6(Page):
+#     form_model = "player"
+#     form_fields = ["crt6"]
+#     # is_displayed = is_displayed1
+#     # get_timeout_seconds = get_timeout_seconds1 
+#     # timer_text = C.TIMER_TEXT
+    
+
+# class CRT7(Page):
+#     form_model = "player"
+#     form_fields = ["crt7"]
+#     # is_displayed = is_displayed1
+#     # get_timeout_seconds = get_timeout_seconds1 
+#     # timer_text = C.TIMER_TEXT
+    
+
+    # @staticmethod
+    # def before_next_page(player: Player, timeout_happened):
+        
+    #     my_before_next_page1(player, timeout_happened)
         # set_payoffs(player)
         # participant = player.participant
         # participant.reward_effort = player.payoff_crt + participant.reward_cal
@@ -273,5 +253,5 @@ class Results1(Page):
 class Results2(Page):
     timeout_seconds = 30
     
-page_sequence = [Introduction, CRT1, CRT2, CRT3, CRT4, CRT5, CRT6, CRT7, Results1]
+page_sequence = [Introduction, CRT1, CRT2, CRT3, CRT4, Results1]
 

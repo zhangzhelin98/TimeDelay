@@ -22,7 +22,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-      give = models.IntegerField(min=0, max=50, label="最大希望価格")
+      give = models.IntegerField(min=0, max=500, label="最大希望価格")
 
 
 

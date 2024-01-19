@@ -512,7 +512,7 @@ for k, v in C.materials_calculation["items"].items():
    
 def set_payoffs(player: Player):
     
-    player.payoff_cal = player.score_calculation*50
+    player.payoff_cal = player.score_calculation*500
 #  PAGES
 
 def get_timeout_seconds1(player: Player):
@@ -534,7 +534,7 @@ class Introduction(Page):
         participant = player.participant
         import time
 
-        participant.expiry = time.time() + 10
+        participant.expiry = time.time() + 300
 
 class Q1(Page):
     form_model="player"
@@ -550,7 +550,7 @@ class Q1(Page):
            player.score_calculation += 1
         else:
            player.score_calculation += 0    
-#获得初期保有1200元
+#获得初期保有10000元
 # このようにパフォーマンスに関係ない固定謝金を入れると、わざわざreal effortタスクで初期保有を決める意味がないように思います。
 # 計算タスクで、全員が達成できるような水準の正解数を決めておいて、それを達成したら、それ以上の追加報酬はない。。
 # ただ、それを達成するためには、ある程度の努力が必要というのではだめでしょうか？    
@@ -558,7 +558,7 @@ class Q1(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -584,7 +584,7 @@ class Q2(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -607,7 +607,7 @@ class Q3(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -630,7 +630,7 @@ class Q4(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -653,7 +653,7 @@ class Q5(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -676,7 +676,7 @@ class Q6(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -698,7 +698,7 @@ class Q7(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -721,7 +721,7 @@ class Q8(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -742,7 +742,7 @@ class Q9(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -764,7 +764,7 @@ class Q10(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -786,7 +786,7 @@ class Q11(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -808,7 +808,7 @@ class Q12(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -830,7 +830,7 @@ class Q13(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -852,7 +852,7 @@ class Q14(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -874,7 +874,7 @@ class Q15(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -896,7 +896,7 @@ class Q16(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -918,7 +918,7 @@ class Q17(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -940,7 +940,7 @@ class Q18(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -962,7 +962,7 @@ class Q19(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -984,7 +984,7 @@ class Q20(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1006,7 +1006,7 @@ class Q21(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1028,7 +1028,7 @@ class Q22(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1050,7 +1050,7 @@ class Q23(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1072,7 +1072,7 @@ class Q24(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1094,7 +1094,7 @@ class Q25(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1116,7 +1116,7 @@ class Q26(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1138,7 +1138,7 @@ class Q27(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1160,7 +1160,7 @@ class Q28(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1182,7 +1182,7 @@ class Q29(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1204,7 +1204,7 @@ class Q30(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1226,7 +1226,7 @@ class Q31(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1248,7 +1248,7 @@ class Q32(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1270,7 +1270,7 @@ class Q33(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1292,7 +1292,7 @@ class Q34(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1313,7 +1313,7 @@ class Q34(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1334,7 +1334,7 @@ class Q35(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1355,7 +1355,7 @@ class Q36(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1376,7 +1376,7 @@ class Q37(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1397,7 +1397,7 @@ class Q38(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 class Q39(Page):
@@ -1417,7 +1417,7 @@ class Q39(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 class Q40(Page):
@@ -1437,7 +1437,7 @@ class Q40(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 class Q41(Page):
@@ -1457,7 +1457,7 @@ class Q41(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 class Q42(Page):
@@ -1477,7 +1477,7 @@ class Q42(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 class Q43(Page):
@@ -1497,7 +1497,7 @@ class Q43(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 class Q44(Page):
@@ -1517,7 +1517,7 @@ class Q44(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 class Q45(Page):
@@ -1537,7 +1537,7 @@ class Q45(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1558,7 +1558,7 @@ class Q46(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1579,7 +1579,7 @@ class Q47(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1600,7 +1600,7 @@ class Q48(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1621,7 +1621,7 @@ class Q49(Page):
         set_payoffs(player) 
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
@@ -1647,7 +1647,7 @@ class Question(Page):
         set_payoffs(player)    
         participant = player.participant
         if player.score_calculation >=13:
-            participant.reward_cal = 1200
+            participant.reward_cal = 10000
         else:
             participant.reward_cal = player.payoff_cal
 
