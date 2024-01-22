@@ -20,14 +20,14 @@
 
 
 {{ if group.reward == -1000 }}
-<p class="fs-3">無作為抽選によって、今回のくじの払戻金額は<b style="color: red">{{group.reward}}円</b>になりました。</p>
+<p class="fs-3">無作為抽選によって、今回のくじの払戻金額は<b style="color: red">{{group.reward}}ポイント</b>になりました。</p>
 
 {{ else }}
-<p>無作為抽選によって、今回のくじの払戻金額は{{group.reward}}円になりました。</p>
+<p>無作為抽選によって、今回のくじの払戻金額は{{group.reward}}ポイントになりました。</p>
 {{ endif }}
-<p>あなたは{{group.computer_price}}円でくじを購入したので、今回の収益は{{player.profit}}円になります。
+<p>あなたは{{group.computer_price}}ポイントでくじを購入したので、今回の収益は{{player.profit}}ポイントになります。
 </p>
-<p>手元の資金は{{player.keep}}円です。
+<p>手元の資金は{{player.keep}}ポイントです。
 </p>
 
 <div class="d-grid gap-2 col-6 mx-auto">

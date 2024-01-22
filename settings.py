@@ -38,7 +38,7 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
 )
 
-PARTICIPANT_FIELDS = [ 'expiry','reward_effort', 'reward_cal', 'reward_plus1000','profit' , 'overdraft','keep_end', 'payoff_end', 'initial','payoff_end1',]
+PARTICIPANT_FIELDS = [ 'expiry','reward_effort', 'reward_cal', 'reward_plus1000','profit' , 'overdraft','keep_end', 'money', 'payoff_end', 'initial','payoff_end1',]
 SESSION_FIELDS = []
 
 # ISO-639 code

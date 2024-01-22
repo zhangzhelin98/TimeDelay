@@ -32,7 +32,7 @@ class Gotosurvey(Page):
     def before_next_page(player: Player, timeout_happened):
         
         participant = player.participant
-        player.payoff_end = participant.keep_end + 1000
+        player.payoff_end = participant.money + 1000
         participant.payoff_end1 = player.payoff_end
         participant.payoff_end = math.ceil(player.payoff_end / 10) * 10
 

@@ -160,6 +160,7 @@ class Introduction(Page):
  
 
 class CRT1(Page):
+    timeout_seconds = 30
     form_model = "player"
     form_fields = ["crt1"]
     # is_displayed = is_displayed1
@@ -171,6 +172,7 @@ class CRT1(Page):
 
 
 class CRT2(Page):
+    timeout_seconds = 30
     form_model = "player"
     form_fields = ["crt2"]    
     # is_displayed = is_displayed1
@@ -179,6 +181,7 @@ class CRT2(Page):
 
 
 class CRT3(Page):
+    timeout_seconds = 30
     form_model = "player"
     form_fields = ["crt3"] 
     # is_displayed = is_displayed1
@@ -188,6 +191,7 @@ class CRT3(Page):
 
 
 class CRT4(Page):
+    timeout_seconds = 30
     form_model = "player"
     form_fields = ["crt4"] 
     # is_displayed = is_displayed1

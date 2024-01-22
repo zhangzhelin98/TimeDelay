@@ -258,6 +258,7 @@ class WaitPage1(WaitPage):
                 player.keep_end = 0
         
             participant.keep_end = player.keep_end  
+            participant.money = participant.keep_end / 50
 
 
 
@@ -339,6 +340,7 @@ class WaitPage2(WaitPage):
                 player.keep_end = 0
         
             participant.keep_end = player.keep_end 
+            participant.money = participant.keep_end / 50
     
 
 
