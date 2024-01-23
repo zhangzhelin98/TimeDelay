@@ -12,12 +12,22 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-
 SESSION_CONFIGS = [
     dict(
-        name='TimeDelay',
-        app_sequence=['introduction','CalculationTask','InvestmentTaskIntro','ComprehensionTest', 'webcam','InvestmentTask' ,'Survey','CRT','STEM','Result'],
-        num_demo_participants=2,
+        name="TimeDelay",
+        app_sequence=[
+            "introduction",
+            "CalculationTask",
+            "InvestmentTaskIntro",
+            "ComprehensionTest",
+            "webcam",
+            "InvestmentTask",
+            # "Survey",
+            # "CRT",
+            # "STEM",
+            # "Result",
+        ],
+        num_demo_participants=1,
     ),
 ]
 
@@ -38,32 +48,41 @@ SESSION_CONFIG_DEFAULTS = dict(
     real_world_currency_per_point=1.00, participation_fee=0.00, doc=""
 )
 
-PARTICIPANT_FIELDS = [ 'expiry','reward_effort', 'reward_cal', 'reward_plus1000','profit' , 'overdraft','keep_end', 'money','money1', 'payoff_end', 'initial','payoff_end1',]
+PARTICIPANT_FIELDS = [
+    "expiry",
+    "reward_effort",
+    "reward_cal",
+    "reward_plus1000",
+    "profit",
+    "overdraft",
+    "keep_end",
+    "money",
+    "money1",
+    "payoff_end",
+    "initial",
+    "payoff_end1",
+]
 SESSION_FIELDS = []
 
 # ISO-639 code
 # for example: de, fr, ja, ko, zh-hans
-LANGUAGE_CODE = 'ja'
+LANGUAGE_CODE = "ja"
 
 # e.g. EUR, GBP, CNY, JPY
-REAL_WORLD_CURRENCY_CODE = 'JPY'
+REAL_WORLD_CURRENCY_CODE = "JPY"
 USE_POINTS = False
 
 ROOMS = [
-    dict(
-        name = "pclab",
-        display_name = "pclab",
-        participant_label_file = "_rooms/pclab.txt"
-    )
+    dict(name="pclab", display_name="pclab", participant_label_file="_rooms/pclab.txt")
 ]
 
 
-ADMIN_USERNAME = 'admin'
+ADMIN_USERNAME = "admin"
 # for security, best to set admin password in an environment variable
-ADMIN_PASSWORD = environ.get('OTREE_ADMIN_PASSWORD')
+ADMIN_PASSWORD = environ.get("OTREE_ADMIN_PASSWORD")
 
 DEMO_PAGE_INTRO_HTML = """ """
 
-SECRET_KEY = '4500948767192'
+SECRET_KEY = "4500948767192"
 # 设置 STATIC_ROOT 为视频文件的保存路径
-STATIC_ROOT = os.path.join(BASE_DIR, '_static', 'video')
+STATIC_ROOT = os.path.join(BASE_DIR, "_static", "video")

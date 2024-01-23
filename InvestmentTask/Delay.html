@@ -1,19 +1,16 @@
 {{ block title }}
     休憩
 {{ endblock }}
+
 {{ block content }}
+
 <p style="color: red"><b>前回の投資で大きな損失(-10000ポイント)が発生しました。</b></p>
-<p>今から10分の休憩に入ります。
-</p>
-<p>休憩中は、他の参加者と交流することができません。
-</p>
+<p>今から10分の休憩に入ります。</p>
+<p>休憩中は、他の参加者と交流することができません。</p>
+<p>休憩が終わったら、投資タスクを再開します。</p>
 
-<p>休憩が終わったら、投資タスクを再開します。
-</p>
-
-<script src="{{ static 'global/record_video.js' }}"></script>
-   
 {{ endblock }}
 
-
-    
+{{ block scripts }}
+<script src="{{ static 'global/record_video.js' }}"></script>
+{{ endblock }}
