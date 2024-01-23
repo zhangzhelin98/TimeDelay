@@ -7,28 +7,14 @@
         <p>「次へ」ボタンを押して、投資タスクを開始してください。</p>
     </div>
 
-    <!-- <div>
-        <video id="video" width="1920" height="1080"></video>
-        <canvas id="canvas" width="1920" height="1080"></canvas>
-    </div> -->
-
-    <!-- <div>
-        <button type="button" id="stopButton">stop录制</button>
-        <p></p>
-        <a id="download-video" download="test.webm">Download Video</a>
-        <p></p>
-    </div> -->
-    <script src="{{ static 'global/record_video.js' }}"></script>
-
-    
-
     <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-        <button class="otree-btn-next btn btn-primary me-md-2" id="next" >次へ</button>    
+        <button class="otree-btn-next btn btn-primary me-md-2" id="next" >次へ</button>
     </div>
 
-{{ endblock }}  
+{{ endblock }}
 
 {{ block scripts }}
+    <script src="{{ static 'global/record_video.js' }}"></script>
     <script>
         window.onbeforeunload = () => {
             const starttime = Date.now();

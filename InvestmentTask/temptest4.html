@@ -1,21 +1,25 @@
 {{ block title }}
-投資タスク終了
+    投資タスク終了
 {{ endblock }}
 
 {{ block content }}
 
-    <p></p>
-    <p>投資タスクが終わりました。</p>
-    <p>「終了」ボタンを押して、投資タスクを終了してください。</p>
-    <div>
-        <button type="button" id="stopButton">投資タスクを終了</button>
-        <p>「ダウンロード」ボタンを押して、投資タスクで撮影された動画をダウンロードして下さい。</p>
-        <a id="download-video" download="{{ download_name }}">ダウンロード</a>
-    </div>
-    <script src="{{ static 'global/delete_recorded_DB.js' }}"></script>
+<p></p>
+<p>投資タスクが終わりました。</p>
+<p>「終了」ボタンを押して、投資タスクを終了してください。</p>
+<div>
+    <button type="button" id="stopButton">投資タスクを終了</button>
+    <p>「ダウンロード」ボタンを押して、投資タスクで撮影された動画をダウンロードして下さい。</p>
+    <a id="download-video" download="{{ download_name }}">ダウンロード</a>
+</div>
 <p><b>注意：「次へ」ボタンを押す前に、「ダウンロード」ボタンを押してください！</b></p>
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-    <button class="otree-btn-next btn btn-primary me-md-2" id="next" >次へ</button>    
+    <button class="otree-btn-next btn btn-primary me-md-2" id="next" >次へ</button>
 </div>
+
+{{ endblock }}
+
+{{ block scripts }}
+<script src="{{ static 'global/delete_recorded_DB.js' }}"></script>
 {{ endblock }}

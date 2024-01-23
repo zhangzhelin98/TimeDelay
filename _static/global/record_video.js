@@ -1,5 +1,3 @@
-// const stopButton = document.getElementById('stopButton');
-// let download_link = document.querySelector("#download-video");
 let mediaRecorder = null;
 let mediaStream = null;
 let recordedChunks = [];
@@ -18,13 +16,7 @@ window.onload = async () => {
     mediaRecorder = new MediaRecorder(mediaStream, { mimeType: 'video/webm' });
 
     mediaRecorder.addEventListener('dataavailable', function(event) {
-        // console.log(
-        //     event.type, // The type of the event
-        //     event.target, // The target of the event
-        //     event, // The event itself
-        //     (() => {try {throw new Error();} catch(e) {return e;}})() // A stacktrace to figure out what triggered the event
-        //   );
-		recordedChunks.push(event.data);
+        recordedChunks.push(event.data);
     });
 
     // event : recording stopped & all blobs sent
@@ -34,12 +26,26 @@ window.onload = async () => {
             event.target, // The target of the event
             event, // The event itself
             (() => {try {throw new Error();} catch(e) {return e;}})() // A stacktrace to figure out what triggered the event
-          );
-    	// create local object URL from the recorded video blobs
-    	// let video_local = URL.createObjectURL(new Blob(blobs_recorded, { type: 'video/webm' }));
+        );
+        // create local object URL from the recorded video blobs
+        // let video_local = URL.createObjectURL(new Blob(blobs_recorded, { type: 'video/webm' }));
         // blobdata = URL.createObjectURL(new Blob(recordedChunks, { type: 'video/webm' }));
         blobdata = new Blob(recordedChunks, { type: 'video/webm' });
         console.log(blobdata)
+
+
+
+        var imgURL = URL.createObjectURL(blobdata);
+        var a = document.createElement('a');
+        a.href = imgURL;
+        a.download = imgURL.split('/').pop();
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+
+
+
 
         // store video blob data to indexedDB
         var dbName = 'webcamDB';
@@ -79,13 +85,6 @@ window.onload = async () => {
             // put video blobdata into indexedDB
             put = transaction.objectStore(storeName).put(blobdata, "video" + String(js_vars.cnt))
             console.log(put)
-            // transaction.objectStore(storeName).get("video").onsuccess = function (event) {
-            //     imgFile = event.target.result;
-            //     console.log(imgFile)
-            //     console.log("Got elephant!" + imgFile);
-            //     var imgURL = URL.createObjectURL(imgFile);
-            //     download_link.href = imgURL;
-            // };
 
             db.close();
         }
@@ -94,17 +93,6 @@ window.onload = async () => {
             console.log('db open error');
         }
 
-
-        // var deleteReq = indexedDB.deleteDatabase(dbName);
-
-        // deleteReq.onsuccess = function(event){
-        //     console.log('db delete success');
-        //     // 存在しないDB名を指定してもこっちが実行される
-        // }
-
-        // deleteReq.onerror = function(){
-        //     console.log('db delete error');
-        // }
     });
 
     mediaRecorder.start(1000);
@@ -114,20 +102,3 @@ window.onbeforeunload = () => {
     mediaRecorder.stop();
     console.log("end")
 };
-
-// stopButton.addEventListener('click', () => {
-//     mediaRecorder.stop();
-//     console.log("end");
-// });
-
-// function blobToArrayBuffer(blob) {
-//     return new Promise((resolve, reject) => {
-//       const reader = new FileReader();
-//       reader.addEventListener('loadend', () => {
-//         resolve(reader.result);
-//       });
-//       reader.addEventListener('error', reject);
-//       reader.readAsArrayBuffer(blob);
-//     });
-//   }
-  

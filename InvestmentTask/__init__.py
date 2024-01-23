@@ -1,27 +1,16 @@
-# from http.client import PAYMENT_REQUIRED
-# from sysconfig import parse_config_h
-
-#from tkinter import Pack
 from otree.api import *
 import random
-
-import os
-import datetime
-import base64
-import glob
-import pathlib
-#import cv2
-# import numpy as np
 
 
 doc = """
 投資タスク
 """
-#photopath = "_static/photo"
-#os.makedirs(photopath, exist_ok=True)
+# photopath = "_static/photo"
+# os.makedirs(photopath, exist_ok=True)
+
 
 class C(BaseConstants):
-    NAME_IN_URL = 'InvestmentTask'
+    NAME_IN_URL = "InvestmentTask"
     PLAYERS_PER_GROUP = None
     NUM_ROUNDS = 10
     ENDOWMENT = cu(20000)
@@ -34,11 +23,10 @@ class Subsession(BaseSubsession):
 class Group(BaseGroup):
     computer_price = models.IntegerField()
     reward = models.IntegerField()
-    #tail = models.IntegerField()
 
 
 class Player(BasePlayer):
-    price = models.IntegerField(initial='0',min=0, max=500, label="最大希望価格")
+    price = models.IntegerField(initial="0", min=0, max=500, label="最大希望価格")
     computer_price = models.IntegerField()
     reward = models.IntegerField()
     profit = models.IntegerField()
@@ -47,65 +35,438 @@ class Player(BasePlayer):
     tail = models.IntegerField()
     tail_total = models.IntegerField()
     overdraft = models.BooleanField()
-    keep_end = models.IntegerField() 
+    keep_end = models.IntegerField()
     blackphoto = models.IntegerField(initial=0)
-    # button_pressed_time = models.FloatField()
-    # in miliseconds
     time_distance_from_start = models.StringField(initial="")
-    def record_button_pressed_time(self):
-        # 记录按下按钮的时间
-        self.button_pressed_time = time.time()
-   
-  
 
 
 def computer_price(group: Group):
-    group.computer_price = random.randint(1,500)
+    group.computer_price = random.randint(1, 500)
 
 
-
-    
-    
-#发生损失的概率，从里面抽选
+# 发生损失的概率，从里面抽选
 def reward(group: Group):
-    group.reward = random.choice([100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,
-                                   200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,
-                                   300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,
-                                   400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,
-                                   500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,
-                                   100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,
-                                   200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,
-                                   300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,
-                                   400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,
-                                   500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,
-                                   1000,1000,1000,1000,1000,1000,1000,1000,1000, -10000])  
-        
-#前5轮不会发生重大损失 practice rounds
+    group.reward = random.choice(
+        [
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            1000,
+            1000,
+            1000,
+            1000,
+            1000,
+            1000,
+            1000,
+            1000,
+            1000,
+            -10000,
+        ]
+    )
+
+
+# 前5轮不会发生重大损失 practice rounds
 def reward_5(group: Group):
-    group.reward = random.choice([100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,
-                                   200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,
-                                   300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,
-                                   400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,
-                                   500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,
-                                   100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,100,
-                                   200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,200,
-                                   300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,
-                                   400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,
-                                   500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,
-                                   1000,1000,1000,1000,1000,1000,1000,1000,1000])     
+    group.reward = random.choice(
+        [
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            100,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            200,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            300,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            400,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            500,
+            1000,
+            1000,
+            1000,
+            1000,
+            1000,
+            1000,
+            1000,
+            1000,
+            1000,
+        ]
+    )
+
 
 def profit(player: Player):
     group = player.group
-    if player.price >= group.computer_price :
-       player.profit = group.reward - group.computer_price
-       
-        
+    if player.price >= group.computer_price:
+        player.profit = group.reward - group.computer_price
+
     else:
-        player.profit = 0   
-        
+        player.profit = 0
 
-
-    
 
 def tail_event(player: Player):
     group = player.group
@@ -114,49 +475,56 @@ def tail_event(player: Player):
         Occurrence += 1
     if group.reward != -10000:
         Occurrence += 0
-    player.tail = Occurrence    
-        
-        
+    player.tail = Occurrence
 
-
-
-def creating_session(subsession: Subsession):
-    session = subsession.session
-    round_number = subsession.round_number
-
-# class MyModel(ExtraModel):
-#     player = models.Link(Player)
-#     photostr = models.LongStringField()
-#     timestamp = models.StringField()
 
 # PAGES
+class test1(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number == 1
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        player.participant.vars["videoframe"] = []
+
+    @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] = 1
+        # print(player.participant.vars["pagecount"])
+        return dict(cnt=player.participant.vars["pagecount"])
+
+    @staticmethod
+    def live_method(player: Player, data):
+        if data:
+            try:
+                start_time = data["starttime"]
+            except Exception:
+                print("invalid message received:", data)
+                return
+            player.participant.vars["start_time"] = start_time
+
 
 class Investment1(Page):
-    timeout_seconds = 30
-    timer_text = '最大購入希望価格を決めるまでの残り時間は:'
-    form_model = 'player'
-    form_fields = ['price']
+    timeout_seconds = 300
+    timer_text = "最大購入希望価格を決めるまでの残り時間は:"
+    form_model = "player"
+    form_fields = ["price"]
+
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number <= 5
 
-
-    @staticmethod
-    def js_vars(player: Player):
-        return dict(endowment=C.ENDOWMENT)
-    
     @staticmethod
     def before_next_page(player: Player, timeout_happened):
         if timeout_happened:
-            player.price = random.randint(0,500)
+            player.price = random.randint(0, 500)
 
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )            
+        # print(player.participant.vars["pagecount"])
+        return dict(cnt=player.participant.vars["pagecount"])
 
     @staticmethod
     def live_method(player: Player, data):
@@ -164,78 +532,76 @@ class Investment1(Page):
             try:
                 decidetime = data["decidetime"]
             except Exception:
-                print('invalid message received:', data)
+                print("invalid message received:", data)
                 return
             if player.time_distance_from_start == "":
-                player.time_distance_from_start = "invest 1:" + str(decidetime - player.participant.vars["start_time"])
+                player.time_distance_from_start = "invest 1:" + str(
+                    decidetime - player.participant.vars["start_time"]
+                )
             else:
-                player.time_distance_from_start += "," + "invest 1:" + str(decidetime - player.participant.vars["start_time"])
-            
-        
-        # computer_price(group)
-        # player.computer_price=group.computer_price
-        # reward_5(group)
-        # profit(player)
-        # tail_event(player)
-        # player_in_all_rounds = player.in_all_rounds()
-        # player.tail_total = sum([p.tail for p in player_in_all_rounds])
-        # player.total_profit=sum([p.profit for p in player_in_all_rounds])
-        # participant = player.participant
-        # player.keep = participant.initial + player.total_profit
-        # if player.keep <= 0:
-        #     player.overdraft = True
-        # else:
-        #     player.overdraft = False 
-        # if player.keep >=1000:
-        #     player.keep_end = player.keep - 1000
-        # if player.keep <1000:
-        #     player.keep_end = 0
-        
-        # participant.keep_end = player.keep_end    
+                player.time_distance_from_start += (
+                    ","
+                    + "invest 1:"
+                    + str(decidetime - player.participant.vars["start_time"])
+                )
 
-    #写真 
-    #def live_method(player: Player, data):
-        #photostr = data["photostr"]
-        #timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H%M%S")
 
-        ## 受け取ったBASE64形式の写真データからプレフィックスを取り除いてから，バイナリに変換する
-       # prefixstr = "data:image/jpeg;base64,"
-        #img = base64.b64decode(photostr.replace(prefixstr, "").encode())
+class Investment2(Page):
+    timeout_seconds = 150
+    timer_text = "最大購入希望価格を決めるまでの残り時間は:"
+    form_model = "player"
+    form_fields = ["price"]
 
-        ## バイナリをjpgファイルに書き出す
-       # with open("{}/{}_{}_{}.jpg".format(photopath, player.participant.code, timestamp, player.round_number), mode='bw') as f:
-            #f.write(img)  
-        #photosize = os.path.getsize("{}/{}_{}_{}.jpg".format(photopath, player.participant.code, timestamp, player.round_number))
-        #if photosize < 204800:
-            #player.blackphoto = 1
-        #else :
-            #player.blackphoto = 0     
+    template_name = "InvestmentTask/Investment1.html"
 
-        
-        # ExtraModelにBASE64形式の写真データを記録する（しなくても良い）
-        # MyModel.create(
-        #     player = player,
-        #     photostr = photostr,
-        #     timestamp = timestamp
-        # )
-    #@staticmethod
-    #def error_message(player: Player, values):
-        #if player.blackphoto == 1:
-            #return "通信エラーが発生しました。もう一度価格を決定して、「決定」ボタンを押してください。"
-
-class WaitPage1(WaitPage):
     @staticmethod
     def is_displayed(player: Player):
-        return player.round_number <= 5
-    
+        return player.round_number > 5
+
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )    
-    
+        # print(player.participant.vars["pagecount"])
+        return dict(cnt=player.participant.vars["pagecount"])
+
+    @staticmethod
+    def before_next_page(player: Player, timeout_happened):
+        if timeout_happened:
+            player.price = random.randint(0, 500)
+
+    @staticmethod
+    def live_method(player: Player, data):
+        if data:
+            try:
+                decidetime = data["decidetime"]
+            except Exception:
+                print("invalid message received:", data)
+                return
+            if player.time_distance_from_start == "":
+                player.time_distance_from_start = "invest 2:" + str(
+                    decidetime - player.participant.vars["start_time"]
+                )
+            else:
+                player.time_distance_from_start += (
+                    ","
+                    + "invest 2:"
+                    + str(decidetime - player.participant.vars["start_time"])
+                )
+
+
+class WaitPage1(WaitPage):
+    template_name = "InvestmentTask/WaitPage_w_cam.html"
+
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number <= 5
+
+    @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] += 1
+        print("XXXXXXXXXX", player.participant.vars["pagecount"])
+        return dict(cnt=player.participant.vars["pagecount"])
+
     @staticmethod
     def after_all_players_arrive(group: Group):
         computer_price(group)
@@ -245,83 +611,36 @@ class WaitPage1(WaitPage):
             tail_event(player)
             player_in_all_rounds = player.in_all_rounds()
             player.tail_total = sum([p.tail for p in player_in_all_rounds])
-            player.total_profit=sum([p.profit for p in player_in_all_rounds])
+            player.total_profit = sum([p.profit for p in player_in_all_rounds])
             participant = player.participant
             player.keep = participant.initial + player.total_profit
             if player.keep <= 0:
                 player.overdraft = True
             else:
-                player.overdraft = False 
-            if player.keep >=10000:
+                player.overdraft = False
+            if player.keep >= 10000:
                 player.keep_end = player.keep - 10000
-            if player.keep <10000:
+            if player.keep < 10000:
                 player.keep_end = 0
-        
-            participant.keep_end = player.keep_end  
+
+            participant.keep_end = player.keep_end
             participant.money1 = participant.keep_end / 50
             participant.money = round(participant.money1)
 
 
-
-
-
-class Investment2(Page):
-    timeout_seconds = 15
-    timer_text = '最大購入希望価格を決めるまでの残り時間は:'
-    form_model = 'player'
-    form_fields = ['price']
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.round_number > 5
-    
-
-    @staticmethod
-    def js_vars(player: Player): # type: ignore
-        return dict(endowment=C.ENDOWMENT)
- 
-
-    @staticmethod
-    def js_vars(player: Player):
-        player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )   
-
-    
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
-        if timeout_happened:
-            player.price = random.randint(0,500)
-            
-    @staticmethod
-    def live_method(player: Player, data):
-        if data:
-            try:
-                decidetime = data["decidetime"]
-            except Exception:
-                print('invalid message received:', data)
-                return
-            if player.time_distance_from_start == "":
-                player.time_distance_from_start = "invest 2:" + str(decidetime - player.participant.vars["start_time"])
-            else:
-                player.time_distance_from_start += "," + "invest 2:" + str(decidetime - player.participant.vars["start_time"])
-         
-        
 class WaitPage2(WaitPage):
+    template_name = "InvestmentTask/WaitPage_w_cam.html"
+
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number > 5
-    
 
-        
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )    
+        # print(player.participant.vars["pagecount"])
+        return dict(cnt=player.participant.vars["pagecount"])
+
     @staticmethod
     def after_all_players_arrive(group: Group):
         computer_price(group)
@@ -331,106 +650,106 @@ class WaitPage2(WaitPage):
             tail_event(player)
             player_in_all_rounds = player.in_all_rounds()
             player.tail_total = sum([p.tail for p in player_in_all_rounds])
-            player.total_profit=sum([p.profit for p in player_in_all_rounds])
+            player.total_profit = sum([p.profit for p in player_in_all_rounds])
             participant = player.participant
             player.keep = participant.initial + player.total_profit
             if player.keep <= 0:
                 player.overdraft = True
             else:
-                player.overdraft = False 
-            if player.keep >=10000:
+                player.overdraft = False
+            if player.keep >= 10000:
                 player.keep_end = player.keep - 10000
-            if player.keep <10000:
+            if player.keep < 10000:
                 player.keep_end = 0
-        
-            participant.keep_end = player.keep_end 
+
+            participant.keep_end = player.keep_end
             participant.money1 = participant.keep_end / 50
             participant.money = round(participant.money1)
- 
-
-
 
 
 class can_buy(Page):
     timeout_seconds = 10
+
     @staticmethod
     def is_displayed(player):
-      group = player.group
-      return player.price >= group.computer_price
+        group = player.group
+        return player.price >= group.computer_price
+
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )
+        # print(player.participant.vars["pagecount"])
+        return dict(cnt=player.participant.vars["pagecount"])
 
 
 class cannot_buy(Page):
     timeout_seconds = 10
+
     @staticmethod
     def is_displayed(player):
-      group = player.group
-      return player.price < group.computer_price
+        group = player.group
+        return player.price < group.computer_price
+
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )
-
-
+        # print(player.participant.vars["pagecount"])
+        return dict(cnt=player.participant.vars["pagecount"])
 
 
 class Feedback_buy(Page):
     timeout_seconds = 15
+
     @staticmethod
     def is_displayed(player):
-      group = player.group
-      return player.price >= group.computer_price and group.reward != -10000   
+        group = player.group
+        return player.price >= group.computer_price and group.reward != -10000
+
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
-        print(player.time_distance_from_start) 
-    
+        # print(player.participant.vars["pagecount"])
+        return dict(cnt=player.participant.vars["pagecount"])
+
+    # @staticmethod
+    # def before_next_page(player: Player, timeout_happened):
+    #     print(player.time_distance_from_start)
+
     @staticmethod
     def live_method(player: Player, data):
         if data:
             try:
                 finishtime = data["finishtime"]
             except Exception:
-                print('invalid message received:', data)
+                print("invalid message received:", data)
                 return
             if player.time_distance_from_start == "":
-                player.time_distance_from_start = "feedback buy:" + str(finishtime - player.participant.vars["start_time"])
+                player.time_distance_from_start = "feedback buy:" + str(
+                    finishtime - player.participant.vars["start_time"]
+                )
             else:
-                player.time_distance_from_start += "," + "feedback buy:" +  str(finishtime - player.participant.vars["start_time"])
+                player.time_distance_from_start += (
+                    ","
+                    + "feedback buy:"
+                    + str(finishtime - player.participant.vars["start_time"])
+                )
 
-   
 
 class Feedback_buy_bigloss(Page):
-
     @staticmethod
     def is_displayed(player):
-      group = player.group
-      return player.price >= group.computer_price and group.reward == -10000 
+        group = player.group
+        return player.price >= group.computer_price and group.reward == -10000
+
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
-        print(player.time_distance_from_start)
+        # print(player.participant.vars["pagecount"])
+        return dict(cnt=player.participant.vars["pagecount"])
+
+    # @staticmethod
+    # def before_next_page(player: Player, timeout_happened):
+    #     print(player.time_distance_from_start)
 
     @staticmethod
     def live_method(player: Player, data):
@@ -438,291 +757,205 @@ class Feedback_buy_bigloss(Page):
             try:
                 finishtime = data["finishtime"]
             except Exception:
-                print('invalid message received:', data)
+                print("invalid message received:", data)
                 return
             if player.time_distance_from_start == "":
-                player.time_distance_from_start = "feedback buy big loss:" + str(finishtime - player.participant.vars["start_time"])
+                player.time_distance_from_start = "feedback buy big loss:" + str(
+                    finishtime - player.participant.vars["start_time"]
+                )
             else:
-                player.time_distance_from_start += "," + "feedback buy big loss:" + str(finishtime - player.participant.vars["start_time"])
+                player.time_distance_from_start += (
+                    ","
+                    + "feedback buy big loss:"
+                    + str(finishtime - player.participant.vars["start_time"])
+                )
 
 
 class Feedback_notbuy(Page):
     timeout_seconds = 15
+
     @staticmethod
     def is_displayed(player):
-      group = player.group
-      return player.price < group.computer_price and group.reward != -10000 
+        group = player.group
+        return player.price < group.computer_price and group.reward != -10000
+
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )    
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
-        print(player.time_distance_from_start)
-    
+        # print(player.participant.vars["pagecount"])
+        return dict(cnt=player.participant.vars["pagecount"])
+
+    # @staticmethod
+    # def before_next_page(player: Player, timeout_happened):
+    #     print(player.time_distance_from_start)
+
     @staticmethod
     def live_method(player: Player, data):
         if data:
             try:
                 finishtime = data["finishtime"]
             except Exception:
-                print('invalid message received:', data)
+                print("invalid message received:", data)
                 return
             if player.time_distance_from_start == "":
-                player.time_distance_from_start = "feedback not buy:" + str(finishtime - player.participant.vars["start_time"])
+                player.time_distance_from_start = "feedback not buy:" + str(
+                    finishtime - player.participant.vars["start_time"]
+                )
             else:
-                player.time_distance_from_start += "," + "feedback not buy:" + str(finishtime - player.participant.vars["start_time"])
-  
-    
+                player.time_distance_from_start += (
+                    ","
+                    + "feedback not buy:"
+                    + str(finishtime - player.participant.vars["start_time"])
+                )
+
 
 class Feedback_notbuy_bigloss(Page):
-
     @staticmethod
     def is_displayed(player):
-      group = player.group
-      return player.price < group.computer_price and group.reward == -10000 
+        group = player.group
+        return player.price < group.computer_price and group.reward == -10000
+
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )    
-    @staticmethod
-    def before_next_page(player: Player, timeout_happened):
-        print(player.time_distance_from_start)
- 
+        # print(player.participant.vars["pagecount"])
+        return dict(cnt=player.participant.vars["pagecount"])
+
+    # @staticmethod
+    # def before_next_page(player: Player, timeout_happened):
+    #     print(player.time_distance_from_start)
+
     @staticmethod
     def live_method(player: Player, data):
         if data:
             try:
                 finishtime = data["finishtime"]
             except Exception:
-                print('invalid message received:', data)
+                print("invalid message received:", data)
                 return
             if player.time_distance_from_start == "":
-                player.time_distance_from_start = "feedback not buy big loss:" + str(finishtime - player.participant.vars["start_time"])
+                player.time_distance_from_start = "feedback not buy big loss:" + str(
+                    finishtime - player.participant.vars["start_time"]
+                )
             else:
-                player.time_distance_from_start += "," + "feedback not buy big loss:" + str(finishtime - player.participant.vars["start_time"])
+                player.time_distance_from_start += (
+                    ","
+                    + "feedback not buy big loss:"
+                    + str(finishtime - player.participant.vars["start_time"])
+                )
 
 
 class Delay(Page):
-    timer_text = '休憩の残り時間は:'
+    timer_text = "休憩の残り時間は:"
 
     timeout_seconds = 600
-    @staticmethod
-    def is_displayed(player):
-      group = player.group
-      return group.reward == -10000 and player.tail_total == 1   
-    @staticmethod
-    def js_vars(player: Player):
-        player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )
 
-class Adjustment(Page):
     @staticmethod
     def is_displayed(player):
-      group = player.group
-      return group.reward == -10000 and player.tail_total == 1          
+        group = player.group
+        return group.reward == -10000 and player.tail_total == 1
+
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )
+        # print(player.participant.vars["pagecount"])
+        return dict(cnt=player.participant.vars["pagecount"])
+
+
+# class Adjustment(Page):
+#     @staticmethod
+#     def is_displayed(player):
+#         group = player.group
+#         return group.reward == -10000 and player.tail_total == 1
+
+#     @staticmethod
+#     def js_vars(player: Player):
+#         player.participant.vars["pagecount"] += 1
+#         print(player.participant.vars["pagecount"])
+#         return dict(cnt=player.participant.vars["pagecount"])
+
+
 class OverdraftHappened(Page):
     @staticmethod
     def is_displayed(player: Player):
-        
-        return player.overdraft 
-    
-    # @staticmethod
-    # def app_after_this_page(player, upcoming_apps):
-    #     print('upcoming_apps is', upcoming_apps)
-    #     if player.overdraft is True:
-    #        return "Survey"
+        return player.overdraft
 
     @staticmethod
     def vars_for_template(player: Player):
         return dict(
-            download_name = "timedelay_player_" + str(player.id_in_subsession),
+            download_name="timedelay_player_" + str(player.id_in_subsession),
         )
 
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        print([x + 1 for x in range(player.participant.vars["pagecount"])])
+        # print(player.participant.vars["pagecount"])
+        # print([x + 1 for x in range(player.participant.vars["pagecount"])])
         return dict(
-            cnt = player.participant.vars["pagecount"],
-            list = [x + 1 for x in range(player.participant.vars["pagecount"])],
-        )
-    @staticmethod
-    def app_after_this_page(player, upcoming_apps):
-        print('upcoming_apps is', upcoming_apps)
-        if player.overdraft is True:
-           return "Survey"
-            
-class gameover(Page):
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.overdraft 
-    @staticmethod
-    def vars_for_template(player: Player):
-        return dict(
-            download_name = "timedelay_player_" + str(player.id_in_subsession),
+            cnt=player.participant.vars["pagecount"],
+            list=[x + 1 for x in range(player.participant.vars["pagecount"])],
+            download_name="timedelay_player_" + str(player.id_in_subsession),
         )
 
     @staticmethod
-    def js_vars(player: Player):
-        player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        print([x + 1 for x in range(player.participant.vars["pagecount"])])
-        return dict(
-            cnt = player.participant.vars["pagecount"],
-            list = [x + 1 for x in range(player.participant.vars["pagecount"])],
-        )
-    @staticmethod
     def app_after_this_page(player, upcoming_apps):
-        print('upcoming_apps is', upcoming_apps)
+        # print("upcoming_apps is", upcoming_apps)
         if player.overdraft is True:
-           return "Survey"
-        
+            return "Survey"
+
+
 class Result(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number >= 10
+
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )
-class test1(Page):
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.round_number == 1
+        # print(player.participant.vars["pagecount"])
+        return dict(cnt=player.participant.vars["pagecount"])
 
-    @staticmethod
-    def vars_for_template(player: Player):
-        player.participant.vars["videoframe"] = []
-    
-    @staticmethod
-    def js_vars(player: Player):
-        player.participant.vars["pagecount"] = 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )
-    
-    @staticmethod
-    def live_method(player: Player, data):
-        if data:
-            try:
-                start_time = data["starttime"]
-            except Exception:
-                print('invalid message received:', data)
-                return
-            player.participant.vars["start_time"] = start_time
-        
-
-    # @staticmethod
-    # def before_next_page(player: Player, timeout_happened):
-    #     # Define the codec and create VideoWriter object
-    #     fourcc = cv2.VideoWriter_fourcc('M','J','P','G')  #fourccを定義
-    #     video = cv2.VideoWriter('output.mp4',fourcc, 30.0, (1920,1080))  #動画書込準備
-    #     # video = cv2.VideoWriter("video.mp4", 0, 30, (1920,1080))
-    #     for i, image in enumerate(player.participant.vars["videoframe"]):
-    #         #use numpy to construct an array from the bytes
-    #         x = np.fromstring(image, dtype='uint8')
-
-    #         #decode the array into an image
-    #         img = cv2.imdecode(x, cv2.IMREAD_UNCHANGED)
-    #         cv2.imwrite(f"test_{i}.jpg", img)
-    #         video.write(img)
-
-    #     cv2.destroyAllWindows()
-    #     video.release()
-
-
-# class temptest1(Page):
-#     @staticmethod
-#     def js_vars(player: Player):
-#         player.participant.vars["pagecount"] += 1
-#         print(player.participant.vars["pagecount"])
-#         return dict(
-#             cnt = player.participant.vars["pagecount"]
-#         )
-
-# class temptest2(Page):
-#     @staticmethod
-#     def js_vars(player: Player):
-#         player.participant.vars["pagecount"] += 1
-#         print(player.participant.vars["pagecount"])
-#         return dict(
-#             cnt = player.participant.vars["pagecount"]
-#         )
-
-# class temptest3(Page):
-#     @staticmethod
-#     def js_vars(player: Player):
-#         player.participant.vars["pagecount"] += 1
-#         print(player.participant.vars["pagecount"])
-#         return dict(
-#             cnt = player.participant.vars["pagecount"]
-#         )
 
 class temptest4(Page):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number >= 10
+
     @staticmethod
     def vars_for_template(player: Player):
         return dict(
-            download_name = "timedelay_player_" + str(player.id_in_subsession),
+            download_name="timedelay_player_" + str(player.id_in_subsession),
         )
 
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        print([x + 1 for x in range(player.participant.vars["pagecount"])])
+        # print(player.participant.vars["pagecount"])
+        # print([x + 1 for x in range(player.participant.vars["pagecount"])])
         return dict(
-            cnt = player.participant.vars["pagecount"],
-            list = [x + 1 for x in range(player.participant.vars["pagecount"])],
+            cnt=player.participant.vars["pagecount"],
+            list=[x + 1 for x in range(player.participant.vars["pagecount"])],
         )
-
-
 
 
 class WaitPage(WaitPage):
     pass
-page_sequence = [test1, Investment1, Investment2,WaitPage1, WaitPage2, can_buy, cannot_buy, Feedback_buy, Feedback_buy_bigloss,Feedback_notbuy, 
-                 Feedback_notbuy_bigloss, Delay, OverdraftHappened,  Result,temptest4]
 
-# def vars_for_admin_report(subsession: Subsession):
-#     files = {}
-#     for p in subsession.get_players():
-#         code = p.participant.code
-#         pnumber = p.participant.id_in_session
-#         tmplist = ["{}/{}".format(pathlib.Path(x).parents[0].name, pathlib.Path(x).name) for x in glob.glob("{}/{}_*.jpg".format(photopath, code))]
-#         files[pnumber] = tmplist
 
-#     return dict(
-#         files = files
-#     )
-# def custom_export(players):
-#     yield ["session.code", "player.id_in_subsession", "timestamp", "photostr"]
-
-#     for p in players:
-#         records_list: list[MyModel] = MyModel.filter(player = p)
-#         for record in records_list:
-#             yield [p.session.code, p.id_in_subsession, record.timestamp, record.photostr]
+page_sequence = [
+    test1,
+    Investment1,
+    Investment2,
+    WaitPage1,
+    WaitPage2,
+    can_buy,
+    cannot_buy,
+    Feedback_buy,
+    Feedback_buy_bigloss,
+    Feedback_notbuy,
+    Feedback_notbuy_bigloss,
+    Delay,
+    OverdraftHappened,
+    Result,
+    # temptest4,
+]
