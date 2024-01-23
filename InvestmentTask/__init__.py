@@ -38,7 +38,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-    price = models.IntegerField(min=0, max=500, label="最大希望価格")
+    price = models.IntegerField(initial='0',min=0, max=500, label="最大希望価格")
     computer_price = models.IntegerField()
     reward = models.IntegerField()
     profit = models.IntegerField()
@@ -49,7 +49,7 @@ class Player(BasePlayer):
     overdraft = models.BooleanField()
     keep_end = models.IntegerField() 
     blackphoto = models.IntegerField(initial=0)
-    button_pressed_time = models.FloatField()
+    # button_pressed_time = models.FloatField()
     # in miliseconds
     time_distance_from_start = models.StringField(initial="")
     def record_button_pressed_time(self):
@@ -78,7 +78,7 @@ def reward(group: Group):
                                    300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,300,
                                    400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,400,
                                    500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,500,
-                                   1000,1000,1000,1000,1000,1000,1000,1000,1000,-10000])   
+                                   1000,1000,1000,1000,1000,1000,1000,1000,1000, -10000])  
         
 #前5轮不会发生重大损失 practice rounds
 def reward_5(group: Group):
@@ -132,7 +132,7 @@ def creating_session(subsession: Subsession):
 # PAGES
 
 class Investment1(Page):
-    timeout_seconds = 300
+    timeout_seconds = 30
     timer_text = '最大購入希望価格を決めるまでの残り時間は:'
     form_model = 'player'
     form_fields = ['price']
@@ -258,7 +258,8 @@ class WaitPage1(WaitPage):
                 player.keep_end = 0
         
             participant.keep_end = player.keep_end  
-            participant.money = participant.keep_end / 50
+            participant.money1 = participant.keep_end / 50
+            participant.money = round(participant.money1)
 
 
 
@@ -311,6 +312,9 @@ class WaitPage2(WaitPage):
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number > 5
+    
+
+        
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
@@ -321,7 +325,7 @@ class WaitPage2(WaitPage):
     @staticmethod
     def after_all_players_arrive(group: Group):
         computer_price(group)
-        reward_5(group)
+        reward(group)
         for player in group.get_players():
             profit(player)
             tail_event(player)
@@ -340,8 +344,9 @@ class WaitPage2(WaitPage):
                 player.keep_end = 0
         
             participant.keep_end = player.keep_end 
-            participant.money = participant.keep_end / 50
-    
+            participant.money1 = participant.keep_end / 50
+            participant.money = round(participant.money1)
+ 
 
 
 
@@ -537,17 +542,59 @@ class OverdraftHappened(Page):
     def is_displayed(player: Player):
         
         return player.overdraft 
+    
+    # @staticmethod
+    # def app_after_this_page(player, upcoming_apps):
+    #     print('upcoming_apps is', upcoming_apps)
+    #     if player.overdraft is True:
+    #        return "Survey"
 
     @staticmethod
-    def app_after_this_page(player: Player, upcoming_apps):
-        return upcoming_apps[0]
+    def vars_for_template(player: Player):
+        return dict(
+            download_name = "timedelay_player_" + str(player.id_in_subsession),
+        )
+
     @staticmethod
     def js_vars(player: Player):
         player.participant.vars["pagecount"] += 1
         print(player.participant.vars["pagecount"])
+        print([x + 1 for x in range(player.participant.vars["pagecount"])])
         return dict(
-            cnt = player.participant.vars["pagecount"]
+            cnt = player.participant.vars["pagecount"],
+            list = [x + 1 for x in range(player.participant.vars["pagecount"])],
         )
+    @staticmethod
+    def app_after_this_page(player, upcoming_apps):
+        print('upcoming_apps is', upcoming_apps)
+        if player.overdraft is True:
+           return "Survey"
+            
+class gameover(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.overdraft 
+    @staticmethod
+    def vars_for_template(player: Player):
+        return dict(
+            download_name = "timedelay_player_" + str(player.id_in_subsession),
+        )
+
+    @staticmethod
+    def js_vars(player: Player):
+        player.participant.vars["pagecount"] += 1
+        print(player.participant.vars["pagecount"])
+        print([x + 1 for x in range(player.participant.vars["pagecount"])])
+        return dict(
+            cnt = player.participant.vars["pagecount"],
+            list = [x + 1 for x in range(player.participant.vars["pagecount"])],
+        )
+    @staticmethod
+    def app_after_this_page(player, upcoming_apps):
+        print('upcoming_apps is', upcoming_apps)
+        if player.overdraft is True:
+           return "Survey"
+        
 class Result(Page):
     @staticmethod
     def is_displayed(player: Player):
@@ -606,32 +653,32 @@ class test1(Page):
     #     video.release()
 
 
-class temptest1(Page):
-    @staticmethod
-    def js_vars(player: Player):
-        player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )
+# class temptest1(Page):
+#     @staticmethod
+#     def js_vars(player: Player):
+#         player.participant.vars["pagecount"] += 1
+#         print(player.participant.vars["pagecount"])
+#         return dict(
+#             cnt = player.participant.vars["pagecount"]
+#         )
 
-class temptest2(Page):
-    @staticmethod
-    def js_vars(player: Player):
-        player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )
+# class temptest2(Page):
+#     @staticmethod
+#     def js_vars(player: Player):
+#         player.participant.vars["pagecount"] += 1
+#         print(player.participant.vars["pagecount"])
+#         return dict(
+#             cnt = player.participant.vars["pagecount"]
+#         )
 
-class temptest3(Page):
-    @staticmethod
-    def js_vars(player: Player):
-        player.participant.vars["pagecount"] += 1
-        print(player.participant.vars["pagecount"])
-        return dict(
-            cnt = player.participant.vars["pagecount"]
-        )
+# class temptest3(Page):
+#     @staticmethod
+#     def js_vars(player: Player):
+#         player.participant.vars["pagecount"] += 1
+#         print(player.participant.vars["pagecount"])
+#         return dict(
+#             cnt = player.participant.vars["pagecount"]
+#         )
 
 class temptest4(Page):
     @staticmethod
@@ -653,10 +700,13 @@ class temptest4(Page):
             list = [x + 1 for x in range(player.participant.vars["pagecount"])],
         )
 
-class test2(Page):
-    pass
 
-page_sequence = [test1, Investment1, Investment2,WaitPage1, WaitPage2, can_buy, cannot_buy, Feedback_buy, Feedback_buy_bigloss,Feedback_notbuy, Feedback_notbuy_bigloss, OverdraftHappened, Result,temptest4 ]
+
+
+class WaitPage(WaitPage):
+    pass
+page_sequence = [test1, Investment1, Investment2,WaitPage1, WaitPage2, can_buy, cannot_buy, Feedback_buy, Feedback_buy_bigloss,Feedback_notbuy, 
+                 Feedback_notbuy_bigloss, Delay, OverdraftHappened,  Result,temptest4]
 
 # def vars_for_admin_report(subsession: Subsession):
 #     files = {}

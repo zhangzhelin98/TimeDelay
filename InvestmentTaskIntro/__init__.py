@@ -64,5 +64,5 @@ class possible_10min(Page):
 
 
 page_sequence = [Introduction, price_input, example_price_input, price_setting, payoff_intro, 
-                 example1, example2, payment_intro, loan
+                 example1, example2, payment_intro, loan,possible_10min
                 ]
