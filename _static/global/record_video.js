@@ -37,8 +37,19 @@ window.onload = async () => {
 
         var imgURL = URL.createObjectURL(blobdata);
         var a = document.createElement('a');
+        var currentTime = new Date();
+        var japanTime = new Intl.DateTimeFormat('ja-JP', {
+          timeZone: 'Asia/Tokyo',
+          year: 'numeric',
+          month: '2-digit',
+          day: '2-digit',
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit'
+        }).format(currentTime);
+        var formattedTime = japanTime.replace(/[:\s]/g, '-');
         a.href = imgURL;
-        a.download = imgURL.split('/').pop();
+        a.download = 'sub_'+ playerIdInSubsession + '_'+ formattedTime + '_' + imgURL.split('/').pop();
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

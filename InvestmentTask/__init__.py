@@ -512,6 +512,12 @@ class Investment1(Page):
     form_fields = ["price"]
 
     @staticmethod
+    def vars_for_template(player: Player):
+        return {
+            'player_id_in_subsession': player.id_in_subsession,
+        }
+
+    @staticmethod
     def is_displayed(player: Player):
         return player.round_number <= 5
 

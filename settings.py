@@ -18,7 +18,7 @@ SESSION_CONFIGS = [
         app_sequence=[
             "introduction",
             "CalculationTask",
-            "InvestmentTaskIntro",
+            # "InvestmentTaskIntro",
             "ComprehensionTest",
             "webcam",
             "InvestmentTask",
