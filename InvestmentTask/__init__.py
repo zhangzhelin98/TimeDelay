@@ -561,6 +561,12 @@ class Investment2(Page):
     template_name = "InvestmentTask/Investment1.html"
 
     @staticmethod
+    def vars_for_template(player: Player):
+        return {
+            'player_id_in_subsession': player.id_in_subsession,
+        }
+
+    @staticmethod
     def is_displayed(player: Player):
         return player.round_number > 5
 
@@ -707,6 +713,12 @@ class Feedback_buy(Page):
     timeout_seconds = 15
 
     @staticmethod
+    def vars_for_template(player: Player):
+        return {
+            'player_id_in_subsession': player.id_in_subsession,
+        }
+
+    @staticmethod
     def is_displayed(player):
         group = player.group
         return player.price >= group.computer_price and group.reward != -10000
@@ -742,6 +754,13 @@ class Feedback_buy(Page):
 
 
 class Feedback_buy_bigloss(Page):
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        return {
+            'player_id_in_subsession': player.id_in_subsession,
+        }
+    
     @staticmethod
     def is_displayed(player):
         group = player.group
@@ -781,6 +800,12 @@ class Feedback_notbuy(Page):
     timeout_seconds = 15
 
     @staticmethod
+    def vars_for_template(player: Player):
+        return {
+            'player_id_in_subsession': player.id_in_subsession,
+        }
+
+    @staticmethod
     def is_displayed(player):
         group = player.group
         return player.price < group.computer_price and group.reward != -10000
@@ -816,6 +841,13 @@ class Feedback_notbuy(Page):
 
 
 class Feedback_notbuy_bigloss(Page):
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        return {
+            'player_id_in_subsession': player.id_in_subsession,
+        }
+    
     @staticmethod
     def is_displayed(player):
         group = player.group
@@ -855,6 +887,12 @@ class Delay(Page):
     timer_text = "休憩の残り時間は:"
 
     timeout_seconds = 600
+
+    @staticmethod
+    def vars_for_template(player: Player):
+        return {
+            'player_id_in_subsession': player.id_in_subsession,
+        }
 
     @staticmethod
     def is_displayed(player):
