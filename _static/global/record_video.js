@@ -49,7 +49,7 @@ window.onload = async () => {
         }).format(currentTime);
         var formattedTime = japanTime.replace(/[:\s]/g, '-');
         a.href = imgURL;
-        a.download = 'sub_'+ playerIdInSubsession + '_'+ formattedTime + '_' + imgURL.split('/').pop();
+        a.download = 'sub_'+ playerIdInSubsession + '_'+ 'round'+ RoundNumber+ '_'+ formattedTime + '_' + imgURL.split('/').pop();
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

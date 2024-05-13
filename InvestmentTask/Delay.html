@@ -5,7 +5,7 @@
 {{ block content }}
 
 <p style="color: red"><b>前回の投資で大きな損失(-10000ポイント)が発生しました。</b></p>
-<p>今から10分の休憩に入ります。</p>
+<p>今から1分の休憩に入ります。</p>
 <p>休憩中は、他の参加者と交流することができません。</p>
 <p>休憩が終わったら、投資タスクを再開します。</p>
 
@@ -13,4 +13,11 @@
 
 {{ block scripts }}
 <script src="{{ static 'global/record_video.js' }}"></script>
+<script>
+    var playerIdInSubsession = {{ player_id_in_subsession }};
+    console.log("Player ID in Subsession:", playerIdInSubsession);
+    
+    // 在这里你可以使用 playerIdInSubsession 这个 JavaScript 变量
+    // 将其添加到下载文件名中等
+</script>
 {{ endblock }}

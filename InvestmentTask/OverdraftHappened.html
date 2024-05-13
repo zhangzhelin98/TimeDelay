@@ -7,15 +7,15 @@
 <p>あなたの投資タスクの最中に手元の資金が0ポイント以下となったので、この後はくじを購入できません。</p>
 <p>これで投資タスクが終了します。</p>
 <p>投資タスクの最中に手元の資金が0ポイント以下となったため、エフォートタスクで獲得した謝金は全て失って、残りの資金は0ポイントになります。</p>
-<p>「終了」ボタンを押して、投資タスクを終了してください。</p>
+<p>「次へ」ボタンを押して、投資タスクを終了してください。</p>
 
-<div>
+<!-- <div>
     <button type="button" id="stopButton">投資タスクを終了</button>
     <p>「ダウンロード」ボタンを押して、投資タスクで撮影された動画をダウンロードして下さい。</p>
     <a id="download-video" download="{{ download_name }}">ダウンロード</a>
-</div>
+</div> -->
 
-<p><b>注意：「次へ」ボタンを押す前に、「ダウンロード」ボタンを押してください！</b></p>
+
 
 <div class="d-grid gap-2 d-md-flex justify-content-md-end">
     <button class="otree-btn-next btn btn-primary me-md-2" id="next" >次へ</button>
@@ -24,6 +24,3 @@
 {{ endblock }}
 
 
-{{ block scripts }}
-<script src="{{ static 'global/delete_recorded_DB.js' }}"></script>
-{{ endblock }}

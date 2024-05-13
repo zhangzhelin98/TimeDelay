@@ -52,79 +52,93 @@ class intro(Page):
 class Q1(Page):
    form_model = 'player'
    form_fields = ['q1']
-   
+   timeout_seconds = 120
+
 
 class Q2(Page):
    form_model = 'player'
    form_fields = ['q2']
-
-class Q2(Page):
-   form_model = 'player'
-   form_fields = ['q2']
+   timeout_seconds = 120
 
 class Q3(Page):
    form_model = 'player'
    form_fields = ['q3']
+   timeout_seconds = 120
 
 class Q4(Page):
    form_model = 'player'
    form_fields = ['q4']
+   timeout_seconds = 120
 
 class Q5(Page):
    form_model = 'player'
    form_fields = ['q5']
+   timeout_seconds = 120
 
 class Q6(Page):
    form_model = 'player'
    form_fields = ['q6']
+   timeout_seconds = 120
 
 class Q7(Page):
    form_model = 'player'
    form_fields = ['q7']
+   timeout_seconds = 120
 
 class Q8(Page):
    form_model = 'player'
    form_fields = ['q8']
+   timeout_seconds = 120
 
 class Q9(Page):
    form_model = 'player'
    form_fields = ['q9']
+   timeout_seconds = 120
 
 class Q10(Page):
    form_model = 'player'
    form_fields = ['q10']
+   timeout_seconds = 120
 
 class Q11(Page):
    form_model = 'player'
    form_fields = ['q11']
+   timeout_seconds = 120
 
 class Q12(Page):
    form_model = 'player'
    form_fields = ['q12']
+   timeout_seconds = 120
 
 class Q13(Page):
    form_model = 'player'
    form_fields = ['q13']
+   timeout_seconds = 120
 
 class Q14(Page):
    form_model = 'player'
    form_fields = ['q14']
+   timeout_seconds = 120
 
 class Q15(Page):
    form_model = 'player'
    form_fields = ['q15']
+   timeout_seconds = 120
 
 class Q16(Page):
    form_model = 'player'
    form_fields = ['q16']
+   timeout_seconds = 120
 
 class Q17(Page):
    form_model = 'player'
    form_fields = ['q17']
+   timeout_seconds = 120
 
 class Q18(Page):
    form_model = 'player'
    form_fields = ['q18']
+   timeout_seconds = 120
 
 class ResultsWaitPage(WaitPage):
     pass

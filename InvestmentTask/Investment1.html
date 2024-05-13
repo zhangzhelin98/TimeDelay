@@ -10,7 +10,7 @@
     <div class="card-body">
         <p class="fw-bold"> スライダーを動かして最大購入希望価格を決定してください。</p>
 
-        <input style="width: 500px" type="range" name="price" min="0" max="500" oninput="updateDescription(this)">
+        <input style="width: 500px" type="range" name="price" min="0" max="1000" oninput="updateDescription(this)">
         <p id="description"></p>
         <!-- by leaving the description blank initially, we prompt the user to move the slider, reducing the anchoring/default effect. -->
 
@@ -19,7 +19,7 @@
 </div>
 
 <p></p>
-<p>30秒以内に決定してください。時間が過ぎると、コンピューターがあなたの最大購入希望価格を0から500ポイントの間で無作為に決定することになります。</p>
+<p>30秒以内に決定してください。時間が過ぎると、コンピューターがあなたの最大購入希望価格を0から1000ポイントの間で無作為に決定することになります。</p>
 <p>価格を決めたら、<b style="color: red">「決定」</b>ボタンを押してください。</p>
 <p>「決定」ボタンを押してから、右下の「次へ」ボタンを押して、次のページに移動してください。</p>
 <p><b style="color: red">注意：「決定」ボタンを一回しか押さないでください！</b></p>
@@ -63,7 +63,8 @@
 <script>
     var playerIdInSubsession = {{ player_id_in_subsession }};
     console.log("Player ID in Subsession:", playerIdInSubsession);
-    
+    var RoundNumber = {{ round_number}}
+    console.log("Round Number:", RoundNumber);
     // 在这里你可以使用 playerIdInSubsession 这个 JavaScript 变量
     // 将其添加到下载文件名中等
 </script>

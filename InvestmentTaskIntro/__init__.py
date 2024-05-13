@@ -22,7 +22,7 @@ class Group(BaseGroup):
 
 
 class Player(BasePlayer):
-      give = models.IntegerField(min=0, max=500, label="最大希望価格")
+      give = models.IntegerField(min=0, max=1000, label="最大希望価格")
 
 
 
@@ -64,5 +64,5 @@ class possible_10min(Page):
 
 
 page_sequence = [Introduction, price_input, example_price_input, price_setting, payoff_intro, 
-                 example1, example2, payment_intro, loan,possible_10min
+                 example1, example2, payment_intro, loan
                 ]
