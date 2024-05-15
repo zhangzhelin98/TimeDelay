@@ -1,58 +1,51 @@
 import random
 import matplotlib.pyplot as plt
 
+# 効用関数
 def risk_aversion(x, alpha):
     return x**alpha / (1 - alpha)
 
 
 def simulate_lottery(num_simulations, alpha):
     profits = []
-    bids = []  # 记录每次模拟中的投资者出价
-    lottery_returns = []  # 记录每次模拟中的彩票回报（与是否购入无关）
+    bids = []  # 投資者の最大購入希望価格
+    lottery_returns = []  # くじの払戻金額
     total_profit = 0
     for _ in range(num_simulations):
-        # 彩票的收益选项和对应的概率
+        # くじの払戻金額と確率
         profit_options = [1000, 800, 600, 400, 200, -10000]
         profit_probabilities = [0.199, 0.199, 0.199, 0.199, 0.199, 0.005]
 
-        # 随机生成电脑的随机数字
+        # コンピューターが選択した整数
         random_number = random.randint(0, 1000)
 
-        # 计算投资者的风险规避程度
-        risk_score = risk_aversion(random_number, alpha)
-
-        # 映射风险规避程度到0-523范围内
-        investor_bid = 523
-        bids.append(investor_bid)  # 记录投资者出价
-
-        # 随机生成彩票的收益（与是否购入无关的）
+        # くじの払戻金額
         outcome = random.choices(profit_options, weights=profit_probabilities)[0]
-        lottery_returns.append(outcome)  # 记录彩票回报
+        lottery_returns.append(outcome)  # くじの払戻金額を記録する
 
-        # 判断是否购买彩票并计算收益
+        # くじを購入できるかどうかを決定されます
+        # 利得を計算します
         if investor_bid >= random_number:
-            # 计算投资者的收益
-            if outcome == -10000:
-                profit = -10000 - random_number  # 收益为-10000时，减去电脑给出的随机数字
-            else:
-                profit = outcome - random_number
-            total_profit += profit
+            profit = outcome - random_number
+        else:
+            profit = 0
+        total_profit += profit    
 
         profits.append(total_profit)
 
     return profits, bids, lottery_returns
 
-num_simulations = 200  # 设置模拟次数
-alpha = 0.9  # 设置风险偏好参数
+num_simulations = 200  # シミュレーションの回数
+alpha = 0.9  
 
 profits, bids, lottery_returns = simulate_lottery(num_simulations, alpha)
 
 
-# 打印最后一次模拟的总收益
+# 最後の回の利得をプリントする
 final_profit = profits[-1]
 print(f"Final profit from the last simulation with risk preference alpha {alpha}: {final_profit} points")
 
-# 生成收益的变化图
+# 利得の図
 plt.figure(figsize=(10, 6))
 plt.plot(range(1, num_simulations + 1), profits)
 plt.xlabel('Simulation Number')
@@ -61,7 +54,7 @@ plt.title('Investor Profit Over Simulations')
 plt.grid(True)
 plt.show()
 
-# 生成投资者出价的变化图
+# 投資価格の図
 plt.figure(figsize=(10, 6))
 plt.plot(range(1, num_simulations + 1), bids)
 plt.xlabel('Simulation Number')
@@ -70,7 +63,7 @@ plt.title('Investor Bid Over Simulations')
 plt.grid(True)
 plt.show()
 
-# 生成彩票回报的变化图
+# くじの払戻金額の図
 plt.figure(figsize=(10, 6))
 plt.plot(range(1, num_simulations + 1), lottery_returns)
 plt.xlabel('Simulation Number')
