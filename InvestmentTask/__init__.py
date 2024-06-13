@@ -12,7 +12,7 @@ doc = """
 class C(BaseConstants):
     NAME_IN_URL = "InvestmentTask"
     PLAYERS_PER_GROUP = None
-    NUM_ROUNDS = 10
+    NUM_ROUNDS = 200
     ENDOWMENT = cu(40000)
 
 
@@ -964,7 +964,7 @@ class OverdraftHappened(Page):
 class Result(Page):
     @staticmethod
     def is_displayed(player: Player):
-        return player.round_number >= 10
+        return player.round_number >= 200
 
     @staticmethod
     def js_vars(player: Player):
