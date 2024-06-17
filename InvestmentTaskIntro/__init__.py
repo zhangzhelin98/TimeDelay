@@ -62,7 +62,12 @@ class possible_10min(Page):
     pass
 
 
+# delay treatment
+# page_sequence = [Introduction, price_input, example_price_input, price_setting, payoff_intro, 
+#                  example1, example2, payment_intro, loan,possible_10min
+#                 ]
 
+# no delay treatment
 page_sequence = [Introduction, price_input, example_price_input, price_setting, payoff_intro, 
-                 example1, example2, payment_intro, loan,possible_10min
+                 example1, example2, payment_intro, loan
                 ]

@@ -998,6 +998,26 @@ class temptest4(Page):
 class WaitPage(WaitPage):
     pass
 
+# delay treatment
+# page_sequence = [
+#     test1,
+#     Investment1,
+#     Investment2,
+#     WaitPage1,
+#     WaitPage2,
+#     can_buy,
+#     cannot_buy,
+#     Feedback_buy,
+#     Feedback_buy_bigloss,
+#     Feedback_notbuy,
+#     Feedback_notbuy_bigloss,
+#     Delay,
+#     Adjustment,
+#     OverdraftHappened,
+#     Result,
+#     # temptest4,
+# ]
+
 
 page_sequence = [
     test1,
@@ -1011,9 +1031,7 @@ page_sequence = [
     Feedback_buy_bigloss,
     Feedback_notbuy,
     Feedback_notbuy_bigloss,
-    Delay,
-    Adjustment,
     OverdraftHappened,
-    Result,
-    # temptest4,
+    Result
 ]
+
