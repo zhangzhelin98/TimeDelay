@@ -12,32 +12,32 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
-SESSION_CONFIGS = [
-    dict(
-        name="TimeDelay",
-        app_sequence=[
-            "introduction",
-            "CalculationTask",
-            "InvestmentTaskIntro",
-            "ComprehensionTest",
-            "webcam",
-            "InvestmentTask",
-            "Survey",
-            "CRT",
-            "STEM",
-            "Result",
-        ],
-        num_demo_participants=1,
-    ),
-]
-
 # SESSION_CONFIGS = [
 #     dict(
-#         name='TimeDelay',
-#         app_sequence=['CRT','STEM','Result'],
+#         name="TimeDelay",
+#         app_sequence=[
+#             "introduction",
+#             "CalculationTask",
+#             "InvestmentTaskIntro",
+#             "ComprehensionTest",
+#             "webcam",
+#             "InvestmentTask",
+#             "Survey",
+#             "CRT",
+#             "STEM",
+#             "Result",
+#         ],
 #         num_demo_participants=1,
 #     ),
 # ]
+
+SESSION_CONFIGS = [
+    dict(
+        name='TimeDelay',
+        app_sequence=["CalculationTask","InvestmentTaskIntro","ComprehensionTest","InvestmentTask"],
+        num_demo_participants=1,
+    ),
+]
 
 # if you set a property in SESSION_CONFIG_DEFAULTS, it will be inherited by all configs
 # in SESSION_CONFIGS, except those that explicitly override it.

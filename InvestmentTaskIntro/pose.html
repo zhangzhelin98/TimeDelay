@@ -1,0 +1,19 @@
+{{ block title }}
+    姿勢について
+{{ endblock }}
+
+{{ block content }}
+<p>実験中に、あなたの<b>フルフェイス</b>をカメラで捉えられるよう、頬杖を突くようなこと、顔をふさぐようなことをしないでください。</p>
+<p>また、実験中に顔周りに髪がかからないようにしてください。</p>
+
+<div class="right-float-image">
+    <img src="{{ static 'image/image1.webp' }}" alt="pose" style="height: 400px; width: auto;">
+    <img src="{{ static 'image/image2.webp' }}" alt="pose" style="height: 400px; width: auto;">
+    <img src="{{ static 'image/image3.webp' }}" alt="pose" style="height: 400px; width: auto;">
+    <img src="{{ static 'image/image4.webp' }}" alt="pose" style="height: 400px; width: auto;">
+</div>
+
+<div class="d-grid gap-2 d-md-flex justify-content-md-end">
+    <button class="otree-btn-next btn btn-primary me-md-2" id="next" >次へ</button>
+</div>
+{{ endblock }}

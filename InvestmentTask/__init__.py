@@ -994,11 +994,36 @@ class temptest4(Page):
             list=[x + 1 for x in range(player.participant.vars["pagecount"])],
         )
 
+class Adjustment1(Page):
+    @staticmethod
+    def is_displayed(player: Player):
+        return player.round_number % 10 == 0
 
 class WaitPage(WaitPage):
     pass
 
 # delay treatment
+page_sequence = [
+    test1,
+    Adjustment1,
+    Investment1,
+    Investment2,
+    WaitPage1,
+    WaitPage2,
+    can_buy,
+    cannot_buy,
+    Feedback_buy,
+    Feedback_buy_bigloss,
+    Feedback_notbuy,
+    Feedback_notbuy_bigloss,
+    Delay,
+    Adjustment,
+    OverdraftHappened,
+    Result,
+    # temptest4,
+]
+
+
 # page_sequence = [
 #     test1,
 #     Investment1,
@@ -1011,27 +1036,7 @@ class WaitPage(WaitPage):
 #     Feedback_buy_bigloss,
 #     Feedback_notbuy,
 #     Feedback_notbuy_bigloss,
-#     Delay,
-#     Adjustment,
 #     OverdraftHappened,
-#     Result,
-#     # temptest4,
+#     Result
 # ]
-
-
-page_sequence = [
-    test1,
-    Investment1,
-    Investment2,
-    WaitPage1,
-    WaitPage2,
-    can_buy,
-    cannot_buy,
-    Feedback_buy,
-    Feedback_buy_bigloss,
-    Feedback_notbuy,
-    Feedback_notbuy_bigloss,
-    OverdraftHappened,
-    Result
-]
 

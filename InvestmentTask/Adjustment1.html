@@ -1,0 +1,73 @@
+{{ block title }}
+座席位置調整
+{{ endblock }}
+
+{{ block styles }}
+<style>
+    /* カメラの映像を見せたくない場合は以下を設定する */
+    /* #camera {
+        display: none;
+    } */
+     #photo {
+        display: none;
+    } 
+</style>
+{{ endblock }}
+
+
+{{ block content }}
+
+<p>フルフェイスを次の画面に入れるように座席位置を調整してください。<b>（実験中に、頬杖を突くようなこと、顔をふさぐようなことをしないでください。また、実験中に顔周りに髪がかからないようにしてください）</b>
+</p>
+
+<p style="color: red"><b>注意：調整が終わったら、座席の位置を動かないて下さい。また、投資タスク中はできるだけ上半身を動かさないようにしてください。
+</b></p>
+<p>「次へ」ボタンの押して、投資タスクを再開してください。
+</p>
+
+    <video id="camera" style="max-width: 100%;"></video>
+    <canvas id="photo" style="max-width: 100%;"></canvas>
+
+    
+
+
+{{ next_button }}
+
+{{ endblock }}
+
+
+{{ block scripts }}
+<script>
+    window.onload = () => {
+        const video  = document.getElementById("camera");
+        const canvas = document.getElementById("photo");
+
+        // カメラ設定
+        const constraints = {
+            audio: false,
+            video: {
+                width: 1920,
+                height: 1080
+            }
+        };
+        // 写真の解像度を設定
+        canvas.width = constraints.video.width;
+        canvas.height = constraints.video.height;
+
+        // カメラに写っているものを <video> に流す
+        navigator.mediaDevices.getUserMedia(constraints)
+            .then( (stream) => {
+                video.srcObject = stream;
+                video.onloadedmetadata = (e) => {
+                    video.play();
+                };
+            })
+            .catch( (err) => {
+                console.error(err.name + ": " + err.message);
+            });
+
+
+    };
+</script>
+<script src="{{ static 'global/webcam.js' }}"></script>
+{{ endblock }}
