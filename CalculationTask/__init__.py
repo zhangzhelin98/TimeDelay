@@ -534,7 +534,7 @@ class Introduction(Page):
         participant = player.participant
         import time
 
-        participant.expiry = time.time() + 30
+        participant.expiry = time.time() + 300
 
 class Q1(Page):
     form_model="player"

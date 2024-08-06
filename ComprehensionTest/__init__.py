@@ -96,6 +96,7 @@ class Results(Page):
 class Initial(Page):
     pass
  
+class myWaitPage(WaitPage):
+    pass
 
-
-page_sequence = [comprehension_test, MyPage, Results, Initial]
+page_sequence = [comprehension_test, MyPage, Results, Initial,myWaitPage]

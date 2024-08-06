@@ -23,7 +23,7 @@ class Subsession(BaseSubsession):
 class Group(BaseGroup):
     computer_price = models.IntegerField()
     reward = models.IntegerField()
-
+    
 
 class Player(BasePlayer):
     price = models.IntegerField(initial="0", min=0, max=1000, label="最大希望価格")
@@ -612,9 +612,9 @@ class Investment2(Page):
 class WaitPage1(WaitPage):
     template_name = "InvestmentTask/WaitPage_w_cam.html"
 
-    @staticmethod
-    def is_displayed(player: Player):
-        return player.round_number <= 5
+    # @staticmethod
+    # def is_displayed(player: Player):
+    #     return player.round_number <= 5
 
     @staticmethod
     def js_vars(player: Player):
@@ -624,8 +624,21 @@ class WaitPage1(WaitPage):
 
     @staticmethod
     def after_all_players_arrive(group: Group):
+        session = group.session
+        
+        # 设置初始种子，只在第一次实验时设置
+        if group.round_number == 1:
+            random.seed(42)
+            session.vars['random_state'] = random.getstate()
+        else:
+            random.setstate(session.vars['random_state'])
+
         computer_price(group)
-        reward_5(group)
+        reward(group)
+        
+        # 保存随机数状态，以便下一轮使用相同状态
+        session.vars['random_state'] = random.getstate()
+
         for player in group.get_players():
             profit(player)
             tail_event(player)
@@ -995,6 +1008,9 @@ class temptest4(Page):
         )
 
 class Adjustment1(Page):
+
+    timeout_seconds = 10
+
     @staticmethod
     def is_displayed(player: Player):
         return player.round_number % 10 == 0
@@ -1009,7 +1025,7 @@ page_sequence = [
     Investment1,
     Investment2,
     WaitPage1,
-    WaitPage2,
+    
     can_buy,
     cannot_buy,
     Feedback_buy,
@@ -1023,13 +1039,14 @@ page_sequence = [
     # temptest4,
 ]
 
-
+# nodelay
 # page_sequence = [
 #     test1,
+#     Adjustment1,
 #     Investment1,
 #     Investment2,
 #     WaitPage1,
-#     WaitPage2,
+#     
 #     can_buy,
 #     cannot_buy,
 #     Feedback_buy,

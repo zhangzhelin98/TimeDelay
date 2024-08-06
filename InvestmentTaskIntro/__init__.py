@@ -55,7 +55,13 @@ class payment_intro(Page):
       pass 
 
 class loan(Page):
-      pass 
+      @staticmethod
+      def js_vars(player: Player):
+           participant = player.participant
+           participant.loan = participant.reward_cal + 10000
+      
+
+      
 
 
 class possible_10min(Page):
@@ -64,12 +70,16 @@ class possible_10min(Page):
 class pose(Page):
      pass
 
+class myWaitPage(WaitPage):
+    pass
+
+
 # delay treatment
 page_sequence = [Introduction, price_input, example_price_input, price_setting, payoff_intro, 
-                 example1, example2, payment_intro, loan,possible_10min, pose
+                 example1, example2, payment_intro, loan,possible_10min, pose, myWaitPage
                 ]
 
 # no delay treatment
 # page_sequence = [Introduction, price_input, example_price_input, price_setting, payoff_intro, 
-#                  example1, example2, payment_intro, loan
+#                  example1, example2, payment_intro, loan, pose, myWaitPage
 #                 ]
