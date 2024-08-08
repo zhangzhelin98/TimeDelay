@@ -1019,6 +1019,27 @@ class WaitPage(WaitPage):
     pass
 
 # delay treatment
+# page_sequence = [
+#     test1,
+#     Adjustment1,
+#     Investment1,
+#     Investment2,
+#     WaitPage1,
+    
+#     can_buy,
+#     cannot_buy,
+#     Feedback_buy,
+#     Feedback_buy_bigloss,
+#     Feedback_notbuy,
+#     Feedback_notbuy_bigloss,
+#     Delay,
+#     Adjustment,
+#     OverdraftHappened,
+#     Result,
+#     # temptest4,
+# ]
+
+# nodelay
 page_sequence = [
     test1,
     Adjustment1,
@@ -1032,28 +1053,7 @@ page_sequence = [
     Feedback_buy_bigloss,
     Feedback_notbuy,
     Feedback_notbuy_bigloss,
-    Delay,
-    Adjustment,
     OverdraftHappened,
-    Result,
-    # temptest4,
+    Result
 ]
-
-# nodelay
-# page_sequence = [
-#     test1,
-#     Adjustment1,
-#     Investment1,
-#     Investment2,
-#     WaitPage1,
-#     
-#     can_buy,
-#     cannot_buy,
-#     Feedback_buy,
-#     Feedback_buy_bigloss,
-#     Feedback_notbuy,
-#     Feedback_notbuy_bigloss,
-#     OverdraftHappened,
-#     Result
-# ]
 

@@ -1,0 +1,96 @@
+Traceback (most recent call last):
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/pool/impl.py", line 424, in _do_get
+    return self.connection
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 893, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/pool/impl.py", line 393, in connection
+    return _ConnectionRecord(self)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 509, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+psycopg2.OperationalError: connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/zzl/.pyenv/versions/myotree5/bin/otree", line 8, in <module>
+    sys.exit(execute_from_command_line())
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/otree/main.py", line 108, in execute_from_command_line
+    setup()
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/otree/main.py", line 139, in setup
+    init_orm()
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/otree/database.py", line 324, in init_orm
+    AnyModel.metadata.create_all(engine)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/sql/schema.py", line 4553, in create_all
+    bind._run_visitor(
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2094, in _run_visitor
+    with self._optional_conn_ctx_manager(connection) as conn:
+  File "/home/zzl/.pyenv/versions/3.9.12/lib/python3.9/contextlib.py", line 119, in __enter__
+    return next(self.gen)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2086, in _optional_conn_ctx_manager
+    with self._contextual_connect() as conn:
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2302, in _contextual_connect
+    self._wrap_pool_connect(self.pool.connect, None),
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2339, in _wrap_pool_connect
+    Connection._handle_dbapi_exception_noconnection(
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 1583, in _handle_dbapi_exception_noconnection
+    util.raise_(
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/engine/base.py", line 2336, in _wrap_pool_connect
+    return fn()
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 364, in connect
+    return _ConnectionFairy._checkout(self)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 778, in _checkout
+    fairy = _ConnectionRecord.checkout(pool)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 495, in checkout
+    rec = pool._do_get()
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/pool/impl.py", line 424, in _do_get
+    return self.connection
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 893, in __get__
+    obj.__dict__[self.__name__] = result = self.fget(obj)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/pool/impl.py", line 393, in connection
+    return _ConnectionRecord(self)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 440, in __init__
+    self.__connect(first_connect_check=True)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 661, in __connect
+    pool.logger.debug("Error on connect(): %s", e)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/util/langhelpers.py", line 68, in __exit__
+    compat.raise_(
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/util/compat.py", line 182, in raise_
+    raise exception
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/pool/base.py", line 656, in __connect
+    connection = pool._invoke_creator(self)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/engine/strategies.py", line 114, in connect
+    return dialect.connect(*cargs, **cparams)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/sqlalchemy/engine/default.py", line 509, in connect
+    return self.dbapi.connect(*cargs, **cparams)
+  File "/home/zzl/.pyenv/versions/3.9.12/envs/myotree5/lib/python3.9/site-packages/psycopg2/__init__.py", line 122, in connect
+    conn = _connect(dsn, connection_factory=connection_factory, **kwasync)
+sqlalchemy.exc.OperationalError: (psycopg2.OperationalError) connection to server at "localhost" (127.0.0.1), port 5432 failed: Connection refused
+	Is the server running on that host and accepting TCP/IP connections?
+
+(Background on this error at: http://sqlalche.me/e/13/e3q8)

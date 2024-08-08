@@ -75,11 +75,11 @@ class myWaitPage(WaitPage):
 
 
 # delay treatment
-page_sequence = [Introduction, price_input, example_price_input, price_setting, payoff_intro, 
-                 example1, example2, payment_intro, loan,possible_10min, pose, myWaitPage
-                ]
+# page_sequence = [Introduction, price_input, example_price_input, price_setting, payoff_intro, 
+#                  example1, example2, payment_intro, loan,possible_10min, pose, myWaitPage
+#                 ]
 
 # no delay treatment
-# page_sequence = [Introduction, price_input, example_price_input, price_setting, payoff_intro, 
-#                  example1, example2, payment_intro, loan, pose, myWaitPage
-#                 ]
+page_sequence = [Introduction, price_input, example_price_input, price_setting, payoff_intro, 
+                 example1, example2, payment_intro, loan, pose, myWaitPage
+                ]
